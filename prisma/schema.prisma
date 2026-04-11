@@ -1,0 +1,330 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================================================
+// User & Authentication
+// ============================================================================
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  passwordHash  String
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  profile           UserProfile?
+  goal              Goal?
+  bodyMetrics       BodyMetrics[]
+  dailyCheckIns     DailyCheckIn[]
+  dailyPlans        DailyPlan[]
+  progressSnapshots ProgressSnapshot[]
+  subscription      Subscription?
+  notificationPref  NotificationPreference?
+  auditLogs         AuditLog[]
+
+  @@map("users")
+}
+
+model UserProfile {
+  id                        String   @id @default(cuid())
+  userId                    String   @unique
+  firstName                 String?
+  lastName                  String?
+  sex                       String   // M, F, Other
+  dateOfBirth               DateTime?
+  heightCm                  Int
+  activityLevel             String   // sedentary, light, moderate, active, very_active
+  workoutExperience         String   // beginner, intermediate, advanced
+  workoutLocation           String   // home, gym, both
+  mealsPerDay               Int      @default(3)
+  minWorkoutMinutesPerWeek  Int      @default(150)
+  daysPerWeekAvailable      Int      @default(5)
+  dietaryStyle              String   // omnivore, vegetarian, pescatarian
+  hasDietaryRestrictions    Boolean  @default(false)
+  allergies                 String[] @default([])
+  cookingTimeAvailable      String   // minimal, moderate, lots
+  budgetLevel               String   // low, medium, high
+  injuries                  String?
+  onboardingCompleted       Boolean  @default(false)
+  createdAt                 DateTime @default(now())
+  updatedAt                 DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("user_profiles")
+}
+
+// ============================================================================
+// Goals & Metrics
+// ============================================================================
+
+model Goal {
+  id                    String   @id @default(cuid())
+  userId                String   @unique
+  targetWaistCm         Float
+  targetDatelineWeeks   Int
+  targetPace            Float    // cm/week
+  secondaryGoals        String[] @default([]) // weight_loss, reduce_bloating, tone_stomach, energy
+  motivation            String?
+  status                String   @default("active") // active, paused, completed
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("goals")
+}
+
+model BodyMetrics {
+  id                String   @id @default(cuid())
+  userId            String
+  currentWeightKg   Float
+  currentWaistCm    Float
+  currentBustCm     Float?
+  measurementDate   DateTime
+  createdAt         DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, measurementDate])
+  @@index([userId, measurementDate])
+  @@map("body_metrics")
+}
+
+// ============================================================================
+// Daily Check-In
+// ============================================================================
+
+model DailyCheckIn {
+  id                String   @id @default(cuid())
+  userId            String
+  date              DateTime @db.Date
+  weight            Float?
+  waistCm           Float?
+  sleepHours        Float
+  stressLevel       Int      // 1-10
+  energyLevel       Int      // 1-10
+  sorenessLevel     Int      // 1-10
+  bloatingLevel     Int      // 1-10
+  stepsCompleted    Int      @default(0)
+  dietAdherence     Float    @default(0) // 0-1
+  workoutAdherence  Float    @default(0) // 0-1
+  notes             String?
+  createdAt         DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, date])
+  @@index([userId, createdAt])
+  @@map("daily_checkins")
+}
+
+// ============================================================================
+// Meal & Workout Templates
+// ============================================================================
+
+model MealTemplate {
+  id                      String   @id @default(cuid())
+  name                    String
+  calorieContent          Int
+  proteinG                Float
+  carbsG                  Float
+  fatsG                   Float
+  ingredients             Json     // [{name: string, quantity: string, unit: string}]
+  instructions            String
+  mealType                String   // breakfast, lunch, dinner, snack
+  dietaryCompatibility    Json     // {vegetarian: bool, pescatarian: bool, omnivore: bool}
+  prepTimeMinutes         Int
+  difficulty              String   // easy, medium, hard
+  isPublic                Boolean  @default(true)
+  createdAt               DateTime @default(now())
+  updatedAt               DateTime @updatedAt
+
+  breakfastPlans DailyPlan[] @relation("breakfast")
+  lunchPlans     DailyPlan[] @relation("lunch")
+  dinnerPlans    DailyPlan[] @relation("dinner")
+
+  @@index([mealType, difficulty])
+  @@map("meal_templates")
+}
+
+model WorkoutTemplate {
+  id                String   @id @default(cuid())
+  name              String
+  description       String?
+  durationMinutes   Int
+  exerciseList      Json     // [{name, sets, reps, rest, notes}]
+  workoutType       String   // strength, cardio, mobility, mixed
+  fitnessLevel      String   // beginner, intermediate, advanced
+  location          String   // home, gym, both
+  isPublic          Boolean  @default(true)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  dailyPlans DailyPlan[]
+
+  @@index([workoutType, fitnessLevel, location])
+  @@map("workout_templates")
+}
+
+// ============================================================================
+// Daily Plans
+// ============================================================================
+
+model DailyPlan {
+  id                  String   @id @default(cuid())
+  userId              String
+  date                DateTime @db.Date
+  calorieTarget       Int
+  proteinTargetG      Float
+  carbTargetG         Float
+  fatTargetG          Float
+  stepGoal            Int
+  hydrationGoalLiters Float    @default(2.5)
+  breakfastId         String?
+  lunchId             String?
+  dinnerId            String?
+  snacks              Json?    // [{templateId, customNote}]
+  workoutId           String?
+  coachingTip         String?
+  generatedAt         DateTime
+  createdAt           DateTime @default(now())
+
+  user              User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  breakfast         MealTemplate?     @relation("breakfast", fields: [breakfastId], references: [id])
+  lunch             MealTemplate?     @relation("lunch", fields: [lunchId], references: [id])
+  dinner            MealTemplate?     @relation("dinner", fields: [dinnerId], references: [id])
+  workout           WorkoutTemplate?  @relation(fields: [workoutId], references: [id])
+
+  @@unique([userId, date])
+  @@index([userId, createdAt])
+  @@map("daily_plans")
+}
+
+// ============================================================================
+// Progress Tracking
+// ============================================================================
+
+model ProgressSnapshot {
+  id                    String   @id @default(cuid())
+  userId                String
+  snapshotDate          DateTime @db.Date
+  averageSleep          Float
+  averageStress         Int
+  averageEnergy         Int
+  waistCm               Float?
+  weightKg              Float?
+  waistTrendCm          Float?   // negative = losing
+  weightTrendKg         Float?
+  adherenceScore        Float    // 0-1
+  projectedGoalDate     DateTime?
+  notes                 String?
+  createdAt             DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, snapshotDate])
+  @@index([userId, snapshotDate])
+  @@map("progress_snapshots")
+}
+
+// ============================================================================
+// Subscriptions
+// ============================================================================
+
+model Subscription {
+  id                      String   @id @default(cuid())
+  userId                  String   @unique
+  status                  String   @default("trial") // trial, active, cancelled, failed
+  stripeSubscriptionId    String?  @unique
+  stripeCustomerId        String?  @unique
+  plan                    String   @default("free_trial") // free_trial, monthly, annual
+  currentPeriodStart      DateTime?
+  currentPeriodEnd        DateTime?
+  trialEndsAt             DateTime?
+  trialStartedAt          DateTime @default(now())
+  cancelAtPeriodEnd       Boolean  @default(false)
+  createdAt               DateTime @default(now())
+  updatedAt               DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("subscriptions")
+}
+
+// ============================================================================
+// Notifications
+// ============================================================================
+
+model NotificationPreference {
+  id                        String   @id @default(cuid())
+  userId                    String   @unique
+  dailyPlanReminderEnabled  Boolean  @default(true)
+  dailyPlanReminderTime     String   @default("08:00") // HH:MM
+  weeklyCheckInReminderDay  String   @default("Sunday")
+  weeklyCheckInReminderTime String   @default("19:00")
+  motivationalNudgesEnabled Boolean  @default(true)
+  emailFrequency            String   @default("daily_digest") // immediate, daily_digest, weekly
+  pushNotificationsEnabled  Boolean  @default(false)
+  smsEnabled                Boolean  @default(false)
+  createdAt                 DateTime @default(now())
+  updatedAt                 DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("notification_preferences")
+}
+
+// ============================================================================
+// Admin & Operations
+// ============================================================================
+
+model FeatureFlag {
+  id                String   @id @default(cuid())
+  name              String   @unique
+  enabled           Boolean  @default(false)
+  rolloutPercentage Int      @default(0) // 0-100
+  config            Json?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@map("feature_flags")
+}
+
+model AdminUser {
+  id            String   @id @default(cuid())
+  email         String   @unique
+  passwordHash  String
+  role          String   @default("analyst") // admin, analyst
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("admin_users")
+}
+
+model AuditLog {
+  id             String   @id @default(cuid())
+  userId         String?
+  action         String   // user_created, subscription_created, etc.
+  resourceType   String   // User, Subscription, Plan
+  resourceId     String
+  changes        Json?
+  ipAddress      String?
+  userAgent      String?
+  createdAt      DateTime @default(now())
+
+  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([userId, createdAt])
+  @@index([action, createdAt])
+  @@map("audit_logs")
+}

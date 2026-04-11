@@ -1,0 +1,567 @@
+openapi: 3.0.0
+info:
+  title: Slimmer Down Now API
+  description: SaaS waist-loss coaching application API
+  version: 1.0.0
+  contact:
+    name: API Support
+servers:
+  - url: http://localhost:3000/api
+    description: Local development
+  - url: https://staging.app.com/api
+    description: Staging environment
+  - url: https://app.com/api
+    description: Production environment
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        email:
+          type: string
+          format: email
+        createdAt:
+          type: string
+          format: date-time
+      required: [id, email, createdAt]
+
+    UserProfile:
+      type: object
+      properties:
+        userId:
+          type: string
+          format: uuid
+        firstName:
+          type: string
+        lastName:
+          type: string
+        sex:
+          type: string
+          enum: [M, F, Other]
+        heightCm:
+          type: integer
+        activityLevel:
+          type: string
+          enum: [sedentary, light, moderate, active, very_active]
+        workoutExperience:
+          type: string
+          enum: [beginner, intermediate, advanced]
+
+    Goal:
+      type: object
+      properties:
+        userId:
+          type: string
+        targetWaistCm:
+          type: number
+        targetDatelineWeeks:
+          type: integer
+        targetPace:
+          type: number
+        status:
+          type: string
+          enum: [active, paused, completed]
+
+    DailyPlan:
+      type: object
+      properties:
+        id:
+          type: string
+        date:
+          type: string
+          format: date
+        calorieTarget:
+          type: integer
+        proteinTargetG:
+          type: number
+        carbTargetG:
+          type: number
+        fatTargetG:
+          type: number
+        stepGoal:
+          type: integer
+        coachingTip:
+          type: string
+
+    CheckIn:
+      type: object
+      properties:
+        id:
+          type: string
+        date:
+          type: string
+          format: date
+        sleepHours:
+          type: number
+        stressLevel:
+          type: integer
+          minimum: 1
+          maximum: 10
+        energyLevel:
+          type: integer
+          minimum: 1
+          maximum: 10
+        sorenessLevel:
+          type: integer
+          minimum: 1
+          maximum: 10
+        dietAdherence:
+          type: number
+          minimum: 0
+          maximum: 1
+        workoutAdherence:
+          type: number
+          minimum: 0
+          maximum: 1
+
+    Subscription:
+      type: object
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        status:
+          type: string
+          enum: [trial, active, cancelled, failed]
+        plan:
+          type: string
+          enum: [free_trial, monthly, annual]
+        currentPeriodEnd:
+          type: string
+          format: date-time
+        trialEndsAt:
+          type: string
+          format: date-time
+
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+            details:
+              type: object
+
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+paths:
+  /auth/signup:
+    post:
+      summary: User signup
+      tags: [Auth]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+                  minLength: 8
+                confirmPassword:
+                  type: string
+              required: [email, password, confirmPassword]
+      responses:
+        201:
+          description: Signup successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  userId:
+                    type: string
+                  token:
+                    type: string
+                  user:
+                    $ref: "#/components/schemas/User"
+        400:
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        409:
+          description: Email already exists
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /auth/login:
+    post:
+      summary: User login
+      tags: [Auth]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+              required: [email, password]
+      responses:
+        200:
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                  user:
+                    $ref: "#/components/schemas/User"
+        401:
+          description: Invalid credentials
+        400:
+          description: Validation error
+
+  /auth/logout:
+    post:
+      summary: User logout
+      tags: [Auth]
+      security:
+        - bearerAuth: []
+      responses:
+        200:
+          description: Logout successful
+
+  /auth/session:
+    get:
+      summary: Get current session
+      tags: [Auth]
+      security:
+        - bearerAuth: []
+      responses:
+        200:
+          description: Session data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    $ref: "#/components/schemas/User"
+                  subscription:
+                    $ref: "#/components/schemas/Subscription"
+        401:
+          description: Unauthorized
+
+  /users/onboarding:
+    post:
+      summary: Complete user onboarding
+      tags: [Users]
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                firstName:
+                  type: string
+                lastName:
+                  type: string
+                sex:
+                  type: string
+                  enum: [M, F, Other]
+                heightCm:
+                  type: integer
+                weightKg:
+                  type: number
+                waistCm:
+                  type: number
+                activityLevel:
+                  type: string
+                workoutExperience:
+                  type: string
+                dietaryStyle:
+                  type: string
+                targetWaistCm:
+                  type: number
+                timelineWeeks:
+                  type: integer
+              required:
+                - firstName
+                - lastName
+                - heightCm
+                - weightKg
+                - waistCm
+                - activityLevel
+                - targetWaistCm
+                - timelineWeeks
+      responses:
+        201:
+          description: Onboarding complete
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    $ref: "#/components/schemas/UserProfile"
+                  initialRecommendation:
+                    type: object
+                    properties:
+                      calories:
+                        type: integer
+                      proteinG:
+                        type: number
+                      carbsG:
+                        type: number
+                      fatsG:
+                        type: number
+
+  /plans/today:
+    get:
+      summary: Get today's plan
+      tags: [Plans]
+      security:
+        - bearerAuth: []
+      responses:
+        200:
+          description: Today's plan
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DailyPlan"
+        401:
+          description: Unauthorized
+        402:
+          description: Payment required (subscription expired)
+
+  /plans:
+    get:
+      summary: Get plans for date range
+      tags: [Plans]
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: startDate
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: endDate
+          in: query
+          schema:
+            type: string
+            format: date
+      responses:
+        200:
+          description: List of plans
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  plans:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/DailyPlan"
+
+  /checkins:
+    post:
+      summary: Create daily check-in
+      tags: [CheckIns]
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                sleepHours:
+                  type: number
+                stressLevel:
+                  type: integer
+                  minimum: 1
+                  maximum: 10
+                energyLevel:
+                  type: integer
+                  minimum: 1
+                  maximum: 10
+                sorenessLevel:
+                  type: integer
+                  minimum: 1
+                  maximum: 10
+                stepsCompleted:
+                  type: integer
+                dietAdherence:
+                  type: number
+                workoutAdherence:
+                  type: number
+              required:
+                - sleepHours
+                - stressLevel
+                - energyLevel
+                - sorenessLevel
+                - stepsCompleted
+                - dietAdherence
+                - workoutAdherence
+      responses:
+        201:
+          description: Check-in created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CheckIn"
+        400:
+          description: Validation error
+        401:
+          description: Unauthorized
+
+    get:
+      summary: Get check-ins
+      tags: [CheckIns]
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: days
+          in: query
+          schema:
+            type: integer
+            default: 7
+      responses:
+        200:
+          description: List of check-ins
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  checkins:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/CheckIn"
+                  weeklyStats:
+                    type: object
+
+  /progress:
+    get:
+      summary: Get progress dashboard
+      tags: [Progress]
+      security:
+        - bearerAuth: []
+      responses:
+        200:
+          description: Progress data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  currentWaist:
+                    type: number
+                  goalWaist:
+                    type: number
+                  waistTrendLast30Days:
+                    type: array
+                  projectedGoalDate:
+                    type: string
+                    format: date
+                  adherenceScore:
+                    type: number
+
+  /subscriptions/status:
+    get:
+      summary: Get subscription status
+      tags: [Subscriptions]
+      security:
+        - bearerAuth: []
+      responses:
+        200:
+          description: Subscription status
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Subscription"
+
+  /subscriptions/checkout:
+    post:
+      summary: Create checkout session
+      tags: [Subscriptions]
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                plan:
+                  type: string
+                  enum: [monthly, annual]
+              required: [plan]
+      responses:
+        200:
+          description: Checkout session created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  stripeSessionId:
+                    type: string
+                  checkoutUrl:
+                    type: string
+
+  /subscriptions/webhook:
+    post:
+      summary: Stripe webhook
+      tags: [Subscriptions]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        200:
+          description: Webhook received
+
+  /health:
+    get:
+      summary: Health check
+      tags: [System]
+      responses:
+        200:
+          description: Service is healthy
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  timestamp:
+                    type: string
+                    format: date-time

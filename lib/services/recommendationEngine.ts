@@ -1,4 +1,4 @@
-import { CALORIE_MINIMUM } from "./constants";
+import { CALORIE_MINIMUM } from "../utils/constants";
 
 interface UserMetrics {
   weightKg: number;
@@ -29,7 +29,17 @@ function calculateBMR(metrics: UserMetrics): number {
     return 10 * weightKg + 6.25 * heightCm - 5 * age - 161;
   }
   // Conservative estimate for Other
-  return (10 * weightKg + 6.25 * heightCm - 5 * age + 5 + 10 * weightKg + 6.25 * heightCm - 5 * age - 161) / 2;
+  return (
+    (10 * weightKg +
+      6.25 * heightCm -
+      5 * age +
+      5 +
+      10 * weightKg +
+      6.25 * heightCm -
+      5 * age -
+      161) /
+    2
+  );
 }
 
 /**
@@ -131,4 +141,4 @@ export function generateDailyRecommendation(
   };
 }
 
-export { UserMetrics, RecommendationConfig };
+export type { UserMetrics, RecommendationConfig };

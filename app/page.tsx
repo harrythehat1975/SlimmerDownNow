@@ -2,7 +2,7 @@ import { auth } from "@/app/api/auth/[...nextauth]/auth";
 import { redirect } from "next/navigation";
 
 export default async function Page() {
-  const session = await auth();
+  const session = (await auth()) as any;
 
   if (session?.user) {
     redirect("/dashboard");
@@ -11,9 +11,7 @@ export default async function Page() {
   return (
     <main className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex flex-col items-center justify-center p-4">
       <div className="text-center max-w-2xl">
-        <h1 className="text-5xl font-bold text-gray-900 mb-4">
-          Slim Down Now
-        </h1>
+        <h1 className="text-5xl font-bold text-gray-900 mb-4">Slim Down Now</h1>
         <p className="text-xl text-gray-600 mb-8">
           Get personalized daily diet and workout plans to reduce inches around your waist.
         </p>
@@ -54,7 +52,7 @@ export default async function Page() {
             <div className="text-3xl mb-2">🎯</div>
             <h3 className="font-semibold text-lg mb-2">Stay Adaptive</h3>
             <p className="text-gray-600">
-              Your plan adjusts based on sleep, stress, and how you're feeling.
+              Your plan adjusts based on sleep, stress, and how you&apos;re feeling.
             </p>
           </div>
         </div>

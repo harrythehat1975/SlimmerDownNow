@@ -82,11 +82,15 @@ async function main() {
   ];
 
   for (const meal of meals) {
-    await prisma.mealTemplate.upsert({
+    // Check if meal exists before creating
+    const existing = await prisma.mealTemplate.findFirst({
       where: { name: meal.name },
-      update: {},
-      create: meal,
     });
+    if (!existing) {
+      await prisma.mealTemplate.create({
+        data: meal,
+      });
+    }
   }
 
   console.log("✅ Meal templates created");
@@ -125,9 +129,7 @@ async function main() {
       name: "20 Min Steady State Walk",
       description: "Low impact cardiovascular activity",
       durationMinutes: 20,
-      exerciseList: JSON.stringify([
-        { name: "Brisk walking", duration: 20, intensity: "steady" },
-      ]),
+      exerciseList: JSON.stringify([{ name: "Brisk walking", duration: 20, intensity: "steady" }]),
       workoutType: "cardio",
       fitnessLevel: "beginner",
       location: "both",
@@ -135,11 +137,15 @@ async function main() {
   ];
 
   for (const workout of workouts) {
-    await prisma.workoutTemplate.upsert({
+    // Check if workout exists before creating
+    const existing = await prisma.workoutTemplate.findFirst({
       where: { name: workout.name },
-      update: {},
-      create: workout,
     });
+    if (!existing) {
+      await prisma.workoutTemplate.create({
+        data: workout,
+      });
+    }
   }
 
   console.log("✅ Workout templates created");

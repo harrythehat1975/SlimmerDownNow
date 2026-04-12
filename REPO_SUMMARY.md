@@ -68,7 +68,7 @@ cd /Users/harrykauffman/SlimmerDownNow44
 npm install
 ```
 
-*This will install all 30+ dependencies. Takes ~3 minutes.*
+_This will install all 30+ dependencies. Takes ~3 minutes._
 
 ### 2. Start Local Infrastructure
 
@@ -122,6 +122,7 @@ All should pass (or show expected skips).
 ## 📋 Files Created (Organized by Purpose)
 
 ### Configuration Files (7 files)
+
 ```
 package.json              # Dependencies + scripts
 tsconfig.json             # TypeScript configuration
@@ -133,6 +134,7 @@ next.config.js            # Next.js setup
 ```
 
 ### Core Application (7 files)
+
 ```
 app/page.tsx              # Landing page
 app/api/health/route.ts   # Health check endpoint
@@ -144,12 +146,14 @@ jest.setup.js             # Jest globals
 ```
 
 ### Database (2 files)
+
 ```
 prisma/schema.prisma      # 11 data models
 prisma/seed.ts            # Meal/workout templates
 ```
 
 ### Business Logic (5 files)
+
 ```
 lib/env.ts                # Environment validation
 lib/db/client.ts          # Prisma client
@@ -162,6 +166,7 @@ lib/utils/
 ```
 
 ### Validation (3 files)
+
 ```
 lib/validations/
   ├─ auth.ts              # Auth schemas
@@ -170,6 +175,7 @@ lib/validations/
 ```
 
 ### Authentication (2 files)
+
 ```
 app/api/auth/[...nextauth]/
   ├─ auth.ts              # Placeholder
@@ -177,12 +183,14 @@ app/api/auth/[...nextauth]/
 ```
 
 ### Testing (2 files)
+
 ```
 e2e/home.spec.ts          # Playwright E2E test
 playwright.config.ts      # Playwright setup
 ```
 
 ### Documentation (6 files)
+
 ```
 README.md                 # Full setup guide
 IMPLEMENTATION_CHECKLIST.md
@@ -202,6 +210,7 @@ This is where you make money. Implement in this order:
 ### Week 1: Authentication
 
 **Files to create:**
+
 - `app/(auth)/signup/page.tsx`
 - `app/(auth)/login/page.tsx`
 - `app/api/auth/[...nextauth]/route.ts` (full implementation)
@@ -214,6 +223,7 @@ This is where you make money. Implement in this order:
 ### Week 1-2: Onboarding
 
 **Files to create:**
+
 - `app/(app)/dashboard/page.tsx`
 - `app/(app)/onboarding/page.tsx`
 - `app/api/users/onboarding/route.ts`
@@ -224,6 +234,7 @@ This is where you make money. Implement in this order:
 ### Week 2: Basic Dashboard
 
 **Files to create:**
+
 - Enhance dashboard to show:
   - Today's calorie target
   - Today's meals
@@ -236,18 +247,18 @@ This is where you make money. Implement in this order:
 
 ## 💡 Architecture Decisions Made (for you)
 
-| Decision | Why |
-|----------|-----|
-| Next.js API routes | Speed to MVP + can scale to separate backend later |
-| PostgreSQL | Relational complexity needed + cost control |
-| Prisma ORM | Type safety + migrations + built-in validation |
-| NextAuth.js | OAuth-ready, self-hosted, no vendor lock-in |
-| Redis for sessions | Fast, scalable, cheaper than managed options |
-| Vercel for hosting | Zero-ops, auto-scaling, integrated CI/CD |
-| Stripe for payments | Industry standard, reliable, webhooks |
-| Bull for background jobs | Lightweight, no new infra, Redis-powered |
+| Decision                            | Why                                                       |
+| ----------------------------------- | --------------------------------------------------------- |
+| Next.js API routes                  | Speed to MVP + can scale to separate backend later        |
+| PostgreSQL                          | Relational complexity needed + cost control               |
+| Prisma ORM                          | Type safety + migrations + built-in validation            |
+| NextAuth.js                         | OAuth-ready, self-hosted, no vendor lock-in               |
+| Redis for sessions                  | Fast, scalable, cheaper than managed options              |
+| Vercel for hosting                  | Zero-ops, auto-scaling, integrated CI/CD                  |
+| Stripe for payments                 | Industry standard, reliable, webhooks                     |
+| Bull for background jobs            | Lightweight, no new infra, Redis-powered                  |
 | Rules-based recommendations for MVP | No API costs, fast iteration, AI layer can be added later |
-| Monorepo over microservices | MVP speed, can split later if needed |
+| Monorepo over microservices         | MVP speed, can split later if needed                      |
 
 ---
 
@@ -266,7 +277,7 @@ This is where you make money. Implement in this order:
 ❌ Stripe integration  
 ❌ Email notifications  
 ❌ Admin dashboard  
-❌ Tests (only templates)  
+❌ Tests (only templates)
 
 **Why?** This is a 9-phase project. Phase 0 is foundation. You build the rest iteratively.
 
@@ -281,7 +292,7 @@ This is where you make money. Implement in this order:
 ✅ Recommendation engine logic (proven formulas)  
 ✅ Docker setup  
 ✅ Testing infrastructure  
-✅ Deployment guide  
+✅ Deployment guide
 
 ---
 
@@ -305,7 +316,7 @@ This is where you make money. Implement in this order:
 ✅ Middleware skeleton for authentication  
 ✅ CORS-ready configuration  
 ✅ TypeScript strict mode (fewer runtime errors)  
-✅ Rate limiting patterns documented  
+✅ Rate limiting patterns documented
 
 **You still need to:** Implement NextAuth.js, configure CORS, add rate limiting endpoints, set up HTTPS (Vercel automatic)
 
@@ -332,7 +343,7 @@ PostHog and Sentry are documented and ready to integrate. When you implement aut
 posthog.capture({
   distinctId: userId,
   event: "plan_viewed",
-  properties: { calories: 2000, date: "2026-04-11" }
+  properties: { calories: 2000, date: "2026-04-11" },
 });
 ```
 
@@ -340,19 +351,19 @@ posthog.capture({
 
 ## 💰 Estimated Costs (First Year)
 
-| Service | Cost | Notes |
-|---------|------|-------|
-| Vercel | ~$200/month | Auto-scaling, no setup |
-| AWS RDS | ~$50/month | db.t3.micro, backups |
-| AWS ElastiCache | ~$20/month | cache.t3.micro |
-| Stripe | 2.9% + $0.30/txn | Only on revenue |
-| Resend | ~$20/month | 100,000 emails |
-| PostHog | ~$50/month | Analytics |
-| Sentry | ~$30/month | Error tracking |
-| Domain | ~$12/year | .com domain |
-| **Total** | **~$400/month** | Scales with revenue |
+| Service         | Cost             | Notes                  |
+| --------------- | ---------------- | ---------------------- |
+| Vercel          | ~$200/month      | Auto-scaling, no setup |
+| AWS RDS         | ~$50/month       | db.t3.micro, backups   |
+| AWS ElastiCache | ~$20/month       | cache.t3.micro         |
+| Stripe          | 2.9% + $0.30/txn | Only on revenue        |
+| Resend          | ~$20/month       | 100,000 emails         |
+| PostHog         | ~$50/month       | Analytics              |
+| Sentry          | ~$30/month       | Error tracking         |
+| Domain          | ~$12/year        | .com domain            |
+| **Total**       | **~$400/month**  | Scales with revenue    |
 
-*Much cheaper at scale thanks to Vercel + managed services.*
+_Much cheaper at scale thanks to Vercel + managed services._
 
 ---
 
@@ -371,6 +382,7 @@ posthog.capture({
 ## ✅ Launch Readiness Checklist
 
 ### Before Phase 1 Starts
+
 - [ ] Clone this repo
 - [ ] Run `npm install`
 - [ ] Run `npm run docker:up`
@@ -379,6 +391,7 @@ posthog.capture({
 - [ ] Verify landing page loads
 
 ### Before Phase 2 (Auth) Starts
+
 - [ ] Review `IMPLEMENTATION_CHECKLIST.md`
 - [ ] Review `DEPLOYMENT_GUIDE.md`
 - [ ] Understand the 11 Prisma models
@@ -388,6 +401,7 @@ posthog.capture({
 - [ ] Create Vercel project
 
 ### Before Phase 3 Starts
+
 - [ ] Have 50+ meal templates in database
 - [ ] Have 20+ workout templates in database
 - [ ] Understand recommendation logic
@@ -417,7 +431,7 @@ These files are the foundation. Read them first:
 ✅ Docker containers run (`npm run docker:up`)  
 ✅ Database initializes (`npx prisma migrate deploy`)  
 ✅ Dev server starts (`npm run dev`)  
-✅ Landing page loads (`http://localhost:3000`)  
+✅ Landing page loads (`http://localhost:3000`)
 
 **You're here. Phase 0 = COMPLETE** 🎉
 
@@ -441,6 +455,7 @@ Then visit `http://localhost:3000` and you should see the landing page.
 ## Final Thoughts
 
 This codebase is designed for:
+
 - ✅ **Speed** (launch MVP in 3-4 weeks)
 - ✅ **Scalability** (can grow to millions of users)
 - ✅ **Maintainability** (clear structure, easy to navigate)

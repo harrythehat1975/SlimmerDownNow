@@ -6,11 +6,11 @@ This guide covers deploying Slimmer Down Now to production on Vercel + AWS infra
 
 ## Environments
 
-| Environment | URL | Database | Deployment |
-|-------------|-----|----------|-----------|
-| Local | localhost:3000 | Docker (local) | `npm run dev` |
-| Staging | staging.app.com | AWS RDS (test) | Auto-deploy `staging` branch |
-| Production | app.com | AWS RDS (prod) | Auto-deploy `main` branch |
+| Environment | URL             | Database       | Deployment                   |
+| ----------- | --------------- | -------------- | ---------------------------- |
+| Local       | localhost:3000  | Docker (local) | `npm run dev`                |
+| Staging     | staging.app.com | AWS RDS (test) | Auto-deploy `staging` branch |
+| Production  | app.com         | AWS RDS (prod) | Auto-deploy `main` branch    |
 
 ## Prerequisites
 
@@ -273,10 +273,7 @@ Sentry.init({
 // In lib/posthog.ts
 import PostHog from "posthog-node";
 
-export const posthog = new PostHog(
-  process.env.POSTHOG_API_KEY,
-  { host: process.env.POSTHOG_HOST }
-);
+export const posthog = new PostHog(process.env.POSTHOG_API_KEY, { host: process.env.POSTHOG_HOST });
 ```
 
 ### Set Up Alerts
@@ -478,31 +475,34 @@ psql postgresql://... -c "SELECT datname, count(*) FROM pg_stat_activity GROUP B
 
 ## Performance Targets
 
-| Metric | Target |
-|--------|--------|
-| Homepage load time | < 2s |
-| Dashboard load time | < 2s |
-| API response time | < 200ms |
-| Database query time | < 100ms |
-| 99th percentile latency | < 1s |
-| Error rate | < 0.1% |
-| Uptime | 99.9% |
+| Metric                  | Target  |
+| ----------------------- | ------- |
+| Homepage load time      | < 2s    |
+| Dashboard load time     | < 2s    |
+| API response time       | < 200ms |
+| Database query time     | < 100ms |
+| 99th percentile latency | < 1s    |
+| Error rate              | < 0.1%  |
+| Uptime                  | 99.9%   |
 
 ## Scaling Strategy
 
 ### When to Scale
 
 **Database:**
+
 - CPU > 80% consistently
 - Connections approaching max
 - Query response time > 500ms
 
 **Application:**
+
 - Error rate increasing
 - Response time degrading
 - Vercel Functions timeout
 
 **Redis:**
+
 - Memory usage > 80%
 - Eviction rate increasing
 
@@ -538,6 +538,7 @@ psql postgresql://... -c "SELECT datname, count(*) FROM pg_stat_activity GROUP B
 ### Recovery Procedures
 
 **Full System Failure:**
+
 ```bash
 # 1. Restore database from latest snapshot
 # AWS RDS → Snapshots → Restore

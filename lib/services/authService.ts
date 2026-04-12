@@ -2,16 +2,16 @@
 // It will contain signup, login, and password reset business logic
 
 export const authService = {
-  signup: async (email: string, password: string) => {
+  signup: async (_email: string, _password: string) => {
     throw new Error("Not implemented");
   },
-  login: async (email: string, password: string) => {
+  login: async (_email: string, _password: string) => {
     throw new Error("Not implemented");
   },
   logout: async () => {
     throw new Error("Not implemented");
   },
-  resetPassword: async (email: string) => {
+  resetPassword: async (_email: string) => {
     throw new Error("Not implemented");
   },
 };

@@ -53,6 +53,7 @@ npm install
 Expected output: "added XXX packages"
 
 Verify:
+
 - [ ] No errors in console
 - [ ] `node_modules/` folder created (~500MB)
 - [ ] `.next/` folder does NOT exist yet (created after build)
@@ -64,6 +65,7 @@ cp .env.example .env.local
 ```
 
 Verify:
+
 - [ ] `.env.local` file created
 - [ ] Contains DATABASE_URL, NEXTAUTH_SECRET, REDIS_URL, etc.
 - [ ] No passwords filled in (that's OK for local dev)
@@ -77,11 +79,13 @@ npm run docker:up
 Wait ~15 seconds for containers to be healthy.
 
 Verify:
+
 - [ ] PostgreSQL container running (`docker ps | grep postgres`)
 - [ ] Redis container running (`docker ps | grep redis`)
 - [ ] No errors in console
 
 Test connections:
+
 ```bash
 # Test PostgreSQL
 psql postgresql://postgres:postgres@localhost:5432/slimmer_dev -c "SELECT version();"
@@ -106,12 +110,14 @@ npm run db:seed
 ```
 
 Verify:
+
 - [ ] Prisma Client generated (no errors)
 - [ ] Database schema created (no errors)
 - [ ] Seed data inserted (should show "Seed complete!")
 - [ ] No SQL errors
 
 Test database:
+
 ```bash
 npx prisma db execute --stdin <<< "SELECT COUNT(*) as meal_count FROM meal_templates;"
 # Should show: 3 meals
@@ -124,6 +130,7 @@ npm run type-check
 ```
 
 Verify:
+
 - [ ] No TypeScript errors
 - [ ] Output is clean
 
@@ -136,6 +143,7 @@ npm run lint
 ```
 
 Verify:
+
 - [ ] No linting errors
 - [ ] Output is clean
 
@@ -148,6 +156,7 @@ npm run build
 Wait 30-60 seconds.
 
 Verify:
+
 - [ ] Build succeeds
 - [ ] `.next/` folder created (~50MB)
 - [ ] No errors in console
@@ -159,6 +168,7 @@ npm run dev
 ```
 
 You should see:
+
 ```
 > slimmer-down-now@0.1.0 dev
 > next dev
@@ -171,6 +181,7 @@ You should see:
 ```
 
 Verify:
+
 - [ ] No errors
 - [ ] "Ready" message appears
 - [ ] Port 3000 is listening
@@ -180,6 +191,7 @@ Verify:
 Open browser: `http://localhost:3000`
 
 You should see:
+
 - [ ] Page title: "Slim Down Now"
 - [ ] Heading: "Slim Down Now"
 - [ ] Subheading about personalized plans
@@ -196,6 +208,7 @@ curl http://localhost:3000/api/health
 ```
 
 You should see JSON response:
+
 ```json
 {
   "status": "ok",
@@ -205,6 +218,7 @@ You should see JSON response:
 ```
 
 Verify:
+
 - [ ] Response code 200
 - [ ] JSON is valid
 - [ ] status is "ok"
@@ -218,6 +232,7 @@ npm run db:studio
 This opens Prisma Studio at `http://localhost:5555` - a GUI for your database.
 
 Verify:
+
 - [ ] Browser opens to `localhost:5555`
 - [ ] You can see database tables
 - [ ] meal_templates table shows ~3 rows
@@ -260,7 +275,7 @@ If all checkboxes pass, you have:
 ✅ Dev server running  
 ✅ Landing page visible  
 ✅ API responsive  
-✅ Database accessible  
+✅ Database accessible
 
 **You're ready to start Phase 1: Authentication + Onboarding**
 
@@ -290,6 +305,7 @@ If all checkboxes pass, you have:
 **Problem:** `Error: EACCES: permission denied`
 
 **Solution:**
+
 ```bash
 sudo chown -R $(whoami) /Users/harrykauffman/SlimmerDownNow44/node_modules
 npm install
@@ -300,6 +316,7 @@ npm install
 **Problem:** `Error: Cannot connect to Docker daemon`
 
 **Solution:**
+
 ```bash
 # Start Docker Desktop application (macOS)
 # Or restart Docker: sudo systemctl restart docker (Linux)
@@ -310,6 +327,7 @@ npm install
 **Problem:** `Error: connect ECONNREFUSED 127.0.0.1:5432`
 
 **Solution:**
+
 ```bash
 # Check containers are running
 docker ps
@@ -326,6 +344,7 @@ npm run docker:up
 **Problem:** `Error: Migration XXX failed`
 
 **Solution:**
+
 ```bash
 # Reset database
 npm run docker:down
@@ -340,6 +359,7 @@ npx prisma migrate deploy
 **Problem:** `Error: listen EADDRINUSE :::3000`
 
 **Solution:**
+
 ```bash
 # Kill process on port 3000
 lsof -ti:3000 | xargs kill -9
@@ -353,11 +373,13 @@ PORT=3001 npm run dev
 **Problem:** `Cannot find module '@prisma/client'`
 
 **Solution:** This is normal before build. Run:
+
 ```bash
 npm run build
 ```
 
 If persists:
+
 ```bash
 rm -rf node_modules package-lock.json
 npm install
@@ -368,6 +390,7 @@ npm install
 ## Success Looks Like
 
 **Terminal output:**
+
 ```
 npm run dev
 > next dev
@@ -379,11 +402,13 @@ npm run dev
 ```
 
 **Browser:**
+
 - Landing page visible
 - "Slim Down Now" heading appears
 - No console errors (F12 → Console tab)
 
 **Database:**
+
 - `npm run db:studio` opens Prisma Studio
 - Tables are visible
 - Test data is present

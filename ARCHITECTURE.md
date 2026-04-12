@@ -383,6 +383,7 @@ Error Tracking
 ## Scalability Considerations
 
 ### Current MVP (estimated 10K users)
+
 ```
 Vercel: 1x Function, auto-scaling
 RDS: db.t3.micro (1 GB RAM, 1 vCPU)
@@ -390,6 +391,7 @@ Redis: cache.t3.micro (0.5 GB)
 ```
 
 ### 100K Users
+
 ```
 Vercel: Auto-scales (typically 10-20 functions)
 RDS: db.t3.small (2 GB RAM, 1 vCPU)
@@ -398,6 +400,7 @@ Add: Read replica for analytics queries
 ```
 
 ### 1M Users
+
 ```
 Vercel: Auto-scales (hundreds of functions)
 RDS: db.r5.xlarge (32 GB RAM, 4 vCPU)
@@ -409,6 +412,7 @@ Add: API Gateway for rate limiting + WAF
 ```
 
 ### 10M+ Users
+
 ```
 Multi-region deployment
 ├─ Vercel: Multi-region with geo-routing

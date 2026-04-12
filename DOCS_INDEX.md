@@ -5,8 +5,10 @@ Complete guide to all documentation in the Slimmer Down Now repository.
 ## 📖 Read These First (In Order)
 
 ### 1. EXECUTIVE_SUMMARY.md (This Week)
+
 **Time to read:** 20 minutes  
 **Contains:**
+
 - Quick overview of what was built
 - Tech stack decisions
 - What's included vs. deferred
@@ -19,8 +21,10 @@ Complete guide to all documentation in the Slimmer Down Now repository.
 ---
 
 ### 2. README.md (This Week)
+
 **Time to read:** 30 minutes  
 **Contains:**
+
 - Quick start instructions
 - Local setup guide
 - Architecture overview
@@ -34,8 +38,10 @@ Complete guide to all documentation in the Slimmer Down Now repository.
 ---
 
 ### 3. SETUP_VERIFICATION.md (Today)
+
 **Time to read:** 15 minutes  
 **Contains:**
+
 - Step-by-step verification checklist
 - All setup commands
 - Expected outputs
@@ -46,8 +52,10 @@ Complete guide to all documentation in the Slimmer Down Now repository.
 ---
 
 ### 4. ARCHITECTURE.md (This Week)
+
 **Time to read:** 45 minutes  
 **Contains:**
+
 - System architecture diagrams
 - Data flow examples
 - Database relationships
@@ -61,8 +69,10 @@ Complete guide to all documentation in the Slimmer Down Now repository.
 ---
 
 ### 5. IMPLEMENTATION_CHECKLIST.md (This Week)
+
 **Time to read:** 60 minutes  
 **Contains:**
+
 - 9 phases of implementation
 - Detailed tasks for each phase
 - Estimated time per task
@@ -76,8 +86,10 @@ Complete guide to all documentation in the Slimmer Down Now repository.
 ---
 
 ### 6. DEPLOYMENT_GUIDE.md (Before First Deploy)
+
 **Time to read:** 45 minutes  
 **Contains:**
+
 - AWS infrastructure setup (RDS, ElastiCache)
 - Vercel configuration
 - Database migrations for production
@@ -94,7 +106,9 @@ Complete guide to all documentation in the Slimmer Down Now repository.
 ## 📋 Reference Documentation
 
 ### 7. openapi.yaml (API Development)
+
 **Contains:**
+
 - Complete API specification
 - All endpoints documented
 - Request/response schemas
@@ -106,7 +120,9 @@ Complete guide to all documentation in the Slimmer Down Now repository.
 ---
 
 ### 8. REPO_SUMMARY.md (Quick Reference)
+
 **Contains:**
+
 - What was created (37 files, ~5000 lines)
 - Architecture decisions with tradeoffs
 - File listing organized by purpose
@@ -121,26 +137,31 @@ Complete guide to all documentation in the Slimmer Down Now repository.
 ## 🗂️ Code Documentation
 
 ### Database Schema
+
 **File:** `prisma/schema.prisma`  
 **Contains:** 11 data models (Users, Profiles, Goals, Plans, CheckIns, etc.)  
 **Read this to:** Understand the data structure
 
 ### Recommendation Engine
+
 **File:** `lib/services/recommendationEngine.ts`  
 **Contains:** TDEE calculation, macro targeting, calorie deficit logic  
 **Read this to:** Understand how personalized plans are calculated
 
 ### Validation Schemas
+
 **Files:** `lib/validations/auth.ts`, `user.ts`, `checkin.ts`  
 **Contains:** Zod schemas for input validation  
 **Read this to:** See what data validation looks like
 
 ### Error Handling
+
 **File:** `lib/utils/errors.ts`  
 **Contains:** Custom error classes for API responses  
 **Read this to:** Understand error handling pattern
 
 ### Environment Setup
+
 **File:** `lib/env.ts`  
 **Contains:** Zod validation for environment variables  
 **Read this to:** See how secrets are managed
@@ -150,14 +171,17 @@ Complete guide to all documentation in the Slimmer Down Now repository.
 ## 🔄 Workflow Documents
 
 ### .env.example
+
 **Contains:** Template of all required environment variables  
 **Do this:** Copy to `.env.local` and fill in values
 
 ### .github/workflows/ci.yml
+
 **Contains:** GitHub Actions CI/CD pipeline  
 **Read this to:** Understand automated testing + deployment
 
 ### docker-compose.yml
+
 **Contains:** PostgreSQL + Redis local development setup  
 **Do this:** Run `npm run docker:up` to start
 
@@ -307,20 +331,20 @@ e2e/                  ← Playwright tests
 
 ## 📞 Quick Answer Guide
 
-| Question | Answer |
-|----------|--------|
-| How do I start locally? | README.md → Quick Start |
-| What files do I need to change? | IMPLEMENTATION_CHECKLIST.md |
-| How does the algorithm work? | lib/services/recommendationEngine.ts |
-| What API endpoints exist? | openapi.yaml |
-| How do I deploy? | DEPLOYMENT_GUIDE.md |
-| What's the database schema? | prisma/schema.prisma |
-| What are the tech choices? | EXECUTIVE_SUMMARY.md |
-| How should errors be handled? | lib/utils/errors.ts |
-| What commands can I run? | README.md → "Run Commands" |
-| How do I test? | README.md → "Test" section |
-| What's the folder structure? | README.md → Project Structure |
-| What can I customize? | ARCHITECTURE.md → Scaling |
+| Question                        | Answer                               |
+| ------------------------------- | ------------------------------------ |
+| How do I start locally?         | README.md → Quick Start              |
+| What files do I need to change? | IMPLEMENTATION_CHECKLIST.md          |
+| How does the algorithm work?    | lib/services/recommendationEngine.ts |
+| What API endpoints exist?       | openapi.yaml                         |
+| How do I deploy?                | DEPLOYMENT_GUIDE.md                  |
+| What's the database schema?     | prisma/schema.prisma                 |
+| What are the tech choices?      | EXECUTIVE_SUMMARY.md                 |
+| How should errors be handled?   | lib/utils/errors.ts                  |
+| What commands can I run?        | README.md → "Run Commands"           |
+| How do I test?                  | README.md → "Test" section           |
+| What's the folder structure?    | README.md → Project Structure        |
+| What can I customize?           | ARCHITECTURE.md → Scaling            |
 
 ---
 
@@ -339,17 +363,17 @@ These documents should be updated:
 
 ## 🎯 Document Purposes at a Glance
 
-| Document | Purpose | Audience |
-|----------|---------|----------|
-| EXECUTIVE_SUMMARY | High-level overview | Everyone |
-| README | Setup + technical reference | Developers |
-| ARCHITECTURE | System design | Architects + Senior Devs |
-| IMPLEMENTATION_CHECKLIST | What to build | Project Manager + Devs |
-| DEPLOYMENT_GUIDE | How to release | DevOps + Senior Devs |
-| openapi.yaml | API specification | API Developers |
-| SETUP_VERIFICATION | Verification steps | New team members |
-| REPO_SUMMARY | Quick facts | Everyone |
-| This document | Navigation guide | Everyone |
+| Document                 | Purpose                     | Audience                 |
+| ------------------------ | --------------------------- | ------------------------ |
+| EXECUTIVE_SUMMARY        | High-level overview         | Everyone                 |
+| README                   | Setup + technical reference | Developers               |
+| ARCHITECTURE             | System design               | Architects + Senior Devs |
+| IMPLEMENTATION_CHECKLIST | What to build               | Project Manager + Devs   |
+| DEPLOYMENT_GUIDE         | How to release              | DevOps + Senior Devs     |
+| openapi.yaml             | API specification           | API Developers           |
+| SETUP_VERIFICATION       | Verification steps          | New team members         |
+| REPO_SUMMARY             | Quick facts                 | Everyone                 |
+| This document            | Navigation guide            | Everyone                 |
 
 ---
 

@@ -19,6 +19,7 @@
 ## Phase 1: Authentication & Onboarding 🔄 NEXT
 
 ### Authentication (Days 4-5)
+
 - [ ] NextAuth.js v5 configuration
   - [ ] Email/password strategy
   - [ ] Prisma adapter
@@ -46,6 +47,7 @@
   - [ ] Middleware to verify JWT
 
 ### UI Components (Days 4-6)
+
 - [ ] SignupForm component
   - [ ] Email input with validation
   - [ ] Password input with strength indicator
@@ -67,6 +69,7 @@
   - [ ] /password-reset-confirm page
 
 ### Onboarding Flow (Days 5-7)
+
 - [ ] Onboarding schema + validation
 - [ ] Multi-step form component
   - [ ] Step 1: Personal info (name, age, sex, height)
@@ -94,6 +97,7 @@
   - [ ] Display initial recommendation
 
 ### Testing (Days 6-7)
+
 - [ ] Unit tests for auth validation schemas
 - [ ] Integration tests for auth endpoints
   - [ ] Signup creates user + subscription
@@ -107,6 +111,7 @@
   - [ ] SQL injection prevented
 
 ### Database Seeds
+
 - [ ] Admin user creation script
 - [ ] Test user creation script
 
@@ -117,6 +122,7 @@
 ## Phase 2: Daily Plan & Recommendation Engine 🔄 (AFTER PHASE 1)
 
 ### Recommendation Engine (Days 8-9)
+
 - [ ] Meal selector algorithm
   - [ ] Filter meals by calorie range
   - [ ] Avoid repetition (previous meals)
@@ -137,6 +143,7 @@
   - [ ] Macro distribution correct
 
 ### Meal & Workout Templates (Days 8-9)
+
 - [ ] Seed 50-100 meal templates
   - [ ] Breakfast options (15+ meals)
   - [ ] Lunch options (20+ meals)
@@ -151,6 +158,7 @@
   - [ ] For home and gym
 
 ### Daily Plan Generation (Days 9-10)
+
 - [ ] Generate daily plans scheduled job (8 PM daily)
   - [ ] Query all active users
   - [ ] Get user profile + current subscription status
@@ -174,6 +182,7 @@
   - [ ] Pagination support
 
 ### UI Components (Days 10-11)
+
 - [ ] DailyPlanCard component
   - [ ] Display today's meals
   - [ ] Display macros breakdown (pie chart)
@@ -198,6 +207,7 @@
   - [ ] Show this week's progress preview
 
 ### Testing (Days 10-11)
+
 - [ ] Unit tests for meal selector
 - [ ] Unit tests for workout selector
 - [ ] Integration tests for plan generation
@@ -210,6 +220,7 @@
 ## Phase 3: Daily Check-In & Progress Tracking 🔄 (AFTER PHASE 2)
 
 ### Check-In Collection (Days 12-13)
+
 - [ ] POST /api/checkins endpoint
   - [ ] Validate check-in data
   - [ ] Store DailyCheckIn record
@@ -228,6 +239,7 @@
   - [ ] Optional: notes
 
 ### Check-In UI (Days 12-13)
+
 - [ ] CheckInForm component
   - [ ] Slider inputs for 1-10 scales
   - [ ] Number input for steps
@@ -241,6 +253,7 @@
   - [ ] Show encouragement message
 
 ### Progress Calculation (Days 13-14)
+
 - [ ] Calculate weekly progress snapshots
   - [ ] Average sleep/stress/energy from 7 check-ins
   - [ ] Waist trend (current vs. 1 week ago)
@@ -251,6 +264,7 @@
 - [ ] Scheduled job: Create weekly snapshots (Sunday night)
 
 ### Progress Dashboard (Days 14-15)
+
 - [ ] GET /api/progress endpoint
   - [ ] Current metrics
   - [ ] Waist/weight history (30d, 90d)
@@ -275,6 +289,7 @@
   - [ ] Color coding (green/red/neutral)
 
 ### Testing (Days 14-15)
+
 - [ ] Unit tests for adherence calculation
 - [ ] Unit tests for projection calculation
 - [ ] Integration tests for check-in API
@@ -287,6 +302,7 @@
 ## Phase 4: Subscriptions & Billing 🔄 (AFTER PHASE 3)
 
 ### Stripe Setup (Days 16-17)
+
 - [ ] Create Stripe account + API keys
 - [ ] Create subscription products/prices in Stripe
   - [ ] Monthly plan ($9.99/month)
@@ -299,6 +315,7 @@
   - [ ] invoice.payment_failed
 
 ### Subscription Logic (Days 16-17)
+
 - [ ] POST /api/subscriptions/checkout
   - [ ] Create Stripe customer
   - [ ] Create checkout session
@@ -317,6 +334,7 @@
   - [ ] Show plan type
 
 ### Entitlement Logic (Days 17-18)
+
 - [ ] Middleware to check subscription status
   - [ ] Allow free trial (7 days)
   - [ ] Allow active subscriptions
@@ -327,6 +345,7 @@
   - [ ] /api/checkins
 
 ### UI & Flow (Days 17-18)
+
 - [ ] BillingPage component
   - [ ] Show current subscription status
   - [ ] Show trial days remaining
@@ -345,6 +364,7 @@
   - [ ] Redirect to Stripe portal
 
 ### Testing (Days 17-18)
+
 - [ ] Unit tests for subscription logic
 - [ ] Integration tests for Stripe webhook
 - [ ] E2E test: trial conversion to paid
@@ -356,6 +376,7 @@
 ## Phase 5: Notifications & Email 🔄 (AFTER PHASE 4)
 
 ### Email Setup (Days 19-20)
+
 - [ ] Resend account + API key
 - [ ] Email templates
   - [ ] Welcome email
@@ -366,6 +387,7 @@
   - [ ] Subscription confirmation
 
 ### Notification Job Scheduling (Days 19-20)
+
 - [ ] Scheduled job: Daily plan reminders (8 AM)
   - [ ] Get users with notification enabled
   - [ ] Send daily plan email via Resend
@@ -380,6 +402,7 @@
   - [ ] Update audit log
 
 ### Notification Preferences (Days 19-20)
+
 - [ ] GET /api/users/preferences
   - [ ] Return notification settings
 - [ ] PUT /api/users/preferences
@@ -392,6 +415,7 @@
   - [ ] Unsubscribe links in emails
 
 ### Testing (Days 19-20)
+
 - [ ] Integration tests for email sending
 - [ ] Test email templates render correctly
 - [ ] E2E: receive daily reminder email
@@ -403,12 +427,14 @@
 ## Phase 6: Admin Dashboard 🔄 (AFTER PHASE 5)
 
 ### Admin Authentication (Days 21-22)
+
 - [ ] AdminUser model (separate from User)
 - [ ] Admin login endpoint
 - [ ] Admin route protection middleware
 - [ ] Admin auth UI pages
 
 ### Analytics Endpoints (Days 21-22)
+
 - [ ] GET /api/admin/analytics
   - [ ] Total users
   - [ ] Active users (7d, 30d)
@@ -420,6 +446,7 @@
   - [ ] Average metrics (waist loss, adherence)
 
 ### User Management (Days 21-22)
+
 - [ ] GET /api/admin/users?limit=50&offset=0&search=...
   - [ ] List users with search
   - [ ] Pagination
@@ -432,6 +459,7 @@
   - [ ] Plan history
 
 ### Feature Flags (Days 21-22)
+
 - [ ] GET /api/admin/feature-flags
   - [ ] List all flags
 - [ ] PUT /api/admin/feature-flags/:name
@@ -442,6 +470,7 @@
   - [ ] FeatureFlagToggle
 
 ### Admin Dashboard UI (Days 21-22)
+
 - [ ] AdminPage
   - [ ] KPI cards (users, MRR, conversions, churn)
   - [ ] Charts (signups over time, revenue over time)
@@ -461,38 +490,45 @@
 ## Phase 7: Testing & QA 🔄 (AFTER PHASE 6)
 
 ### Test Coverage Goals
+
 - [ ] Business logic: 90%+ coverage
 - [ ] API routes: 80%+ coverage
 - [ ] Components: 60%+ coverage
 
 ### Unit Tests
+
 - [ ] recommendationEngine.test.ts
 - [ ] calculation utilities tests
 - [ ] error handling tests
 
 ### Integration Tests
+
 - [ ] Auth flow tests
 - [ ] Plan generation tests
 - [ ] Check-in tests
 - [ ] Subscription tests
 
 ### E2E Tests
+
 - [ ] Full signup → onboarding → plan view flow
 - [ ] Check-in → progress tracking flow
 - [ ] Trial to paid conversion flow
 
 ### Performance Testing
+
 - [ ] Load test with 100 concurrent users
 - [ ] Plan generation with 10,000 users
 - [ ] Dashboard load time < 2s
 
 ### Security Audit
+
 - [ ] SQL injection tests
 - [ ] XSS vulnerability scan
 - [ ] Rate limiting verification
 - [ ] Auth token validation
 
 ### Accessibility Audit
+
 - [ ] WCAG 2.1 AA compliance
 - [ ] Keyboard navigation
 - [ ] Screen reader compatibility
@@ -504,6 +540,7 @@
 ## Phase 8: Production Hardening 🔄 (AFTER PHASE 7)
 
 ### Monitoring & Logging
+
 - [ ] Sentry integration + alerts
   - [ ] Error rate > 1%
   - [ ] Critical errors
@@ -518,6 +555,7 @@
   - [ ] Backup verification
 
 ### Security Hardening
+
 - [ ] Rate limiting on all endpoints
 - [ ] CORS properly configured
 - [ ] CSP headers
@@ -527,6 +565,7 @@
 - [ ] Audit logging for sensitive actions
 
 ### Performance Optimization
+
 - [ ] Image optimization
 - [ ] Code splitting
 - [ ] CSS/JS minification
@@ -535,12 +574,14 @@
 - [ ] CDN setup for static assets
 
 ### Documentation
+
 - [ ] API documentation (OpenAPI/Swagger)
 - [ ] Deployment guide
 - [ ] Runbook for common issues
 - [ ] Architecture decisions log (ADR)
 
 ### Legal & Compliance
+
 - [ ] Privacy Policy
 - [ ] Terms of Service
 - [ ] Disclaimers in app
@@ -554,18 +595,21 @@
 ## Phase 9: Soft Launch 🔄 (FINAL)
 
 ### Pre-Launch
+
 - [ ] Final security review
 - [ ] Performance baseline established
 - [ ] Support process documented
 - [ ] On-call rotation setup
 
 ### Soft Launch (Limited Users)
+
 - [ ] Invite 100-500 beta users
 - [ ] Monitor error rates and performance
 - [ ] Gather user feedback
 - [ ] Fix critical bugs
 
 ### Launch Criteria
+
 - ✅ 1+ new signups per day
 - ✅ 30%+ first check-in rate
 - ✅ 15%+ trial to paid conversion by day 7
@@ -575,6 +619,7 @@
 - ✅ Monitoring alerts functioning
 
 ### Post-Launch
+
 - [ ] Daily standup reviewing metrics
 - [ ] Weekly bug triage
 - [ ] Iterate on feedback
@@ -597,16 +642,16 @@
 
 ## Key Risks & Mitigations
 
-| Risk | Mitigation |
-|------|-----------|
-| Database down | Automated RDS backups, 30-day retention, test restore quarterly |
-| Auth bypass | Security review, penetration testing before launch |
-| Payment processing failure | Stripe webhook retries, manual reconciliation process |
-| High user acquisition overwhelming system | Load testing, auto-scaling on Vercel + RDS, rate limiting |
-| Poor data privacy | Encrypt sensitive data, audit logs, GDPR export/delete |
-| User churn from poor UX | User testing, analytics tracking, iterate on feedback |
-| API rate limit exhaustion | Implement rate limiting, monitor usage patterns |
-| Recommendation engine not working | Deterministic rules + fallback logic, monitor adherence metrics |
+| Risk                                      | Mitigation                                                      |
+| ----------------------------------------- | --------------------------------------------------------------- |
+| Database down                             | Automated RDS backups, 30-day retention, test restore quarterly |
+| Auth bypass                               | Security review, penetration testing before launch              |
+| Payment processing failure                | Stripe webhook retries, manual reconciliation process           |
+| High user acquisition overwhelming system | Load testing, auto-scaling on Vercel + RDS, rate limiting       |
+| Poor data privacy                         | Encrypt sensitive data, audit logs, GDPR export/delete          |
+| User churn from poor UX                   | User testing, analytics tracking, iterate on feedback           |
+| API rate limit exhaustion                 | Implement rate limiting, monitor usage patterns                 |
+| Recommendation engine not working         | Deterministic rules + fallback logic, monitor adherence metrics |
 
 ---
 

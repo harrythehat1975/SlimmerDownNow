@@ -77,20 +77,20 @@ npm run docker:down
 
 ### Tech Stack
 
-| Layer | Technology |
-|-------|------------|
-| **Frontend** | Next.js 14 + React 18 + TypeScript |
-| **UI Framework** | Tailwind CSS + shadcn/ui |
-| **Backend API** | Next.js API Routes |
-| **Database** | PostgreSQL 15 + Prisma ORM |
-| **Authentication** | NextAuth.js v5 |
-| **Sessions** | Redis (session store) + Secure HTTP-only cookies |
-| **Background Jobs** | Bull + Redis |
-| **Payments** | Stripe |
-| **Email** | Resend |
-| **Analytics** | PostHog |
-| **Error Tracking** | Sentry |
-| **Hosting** | Vercel (frontend) + AWS RDS (database) |
+| Layer               | Technology                                       |
+| ------------------- | ------------------------------------------------ |
+| **Frontend**        | Next.js 14 + React 18 + TypeScript               |
+| **UI Framework**    | Tailwind CSS + shadcn/ui                         |
+| **Backend API**     | Next.js API Routes                               |
+| **Database**        | PostgreSQL 15 + Prisma ORM                       |
+| **Authentication**  | NextAuth.js v5                                   |
+| **Sessions**        | Redis (session store) + Secure HTTP-only cookies |
+| **Background Jobs** | Bull + Redis                                     |
+| **Payments**        | Stripe                                           |
+| **Email**           | Resend                                           |
+| **Analytics**       | PostHog                                          |
+| **Error Tracking**  | Sentry                                           |
+| **Hosting**         | Vercel (frontend) + AWS RDS (database)           |
 
 ### Project Structure
 
@@ -432,6 +432,7 @@ npm run db:studio
 ### Common Issues
 
 **Database connection fails:**
+
 ```bash
 # Check Docker containers
 docker ps
@@ -443,6 +444,7 @@ npm run docker:down && npm run docker:up
 ```
 
 **NextAuth session not persisting:**
+
 ```bash
 # Clear browser cookies
 # Restart dev server
@@ -452,6 +454,7 @@ npm run dev
 ```
 
 **Build fails:**
+
 ```bash
 npm run type-check    # Check for TS errors
 npm run lint          # Check for linting errors
@@ -503,31 +506,37 @@ git push origin feature/description
 ## 🗺️ Roadmap
 
 ### Phase 1: Foundation (Complete)
+
 - ✅ Project scaffold
 - ✅ Database schema
 - ✅ Environment setup
 
 ### Phase 2: Auth + Onboarding (Next)
+
 - [ ] Signup / Login flows
 - [ ] Onboarding form
 - [ ] Initial recommendation generation
 
 ### Phase 3: Daily Plans
+
 - [ ] Plan generation engine
 - [ ] Meal selector
 - [ ] Workout selector
 
 ### Phase 4: Check-In & Progress
+
 - [ ] Check-in form
 - [ ] Progress dashboard
 - [ ] Trend charts
 
 ### Phase 5: Subscriptions
+
 - [ ] Stripe integration
 - [ ] Checkout flow
 - [ ] Webhook handling
 
 ### Phase 6: Polish & Launch
+
 - [ ] Admin dashboard
 - [ ] Analytics setup
 - [ ] Security audit
@@ -538,6 +547,7 @@ git push origin feature/description
 ## 📞 Support
 
 For questions or issues:
+
 1. Check this README
 2. Check GitHub Issues
 3. Review Prisma docs: https://www.prisma.io/docs/

@@ -1,0 +1,164 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+
+export default function OnboardingStep3() {
+  const router = useRouter();
+  const [formData, setFormData] = useState({
+    activityLevel: "",
+    dietaryStyle: "",
+  });
+  const [errors, setErrors] = useState<Record<string, string>>({});
+
+  // Load from localStorage on mount
+  useEffect(() => {
+    const saved = localStorage.getItem("onboarding");
+    if (saved) {
+      try {
+        const data = JSON.parse(saved);
+        setFormData({
+          activityLevel: data.activityLevel || "",
+          dietaryStyle: data.dietaryStyle || "",
+        });
+      } catch (err) {
+        // Ignore parse errors
+      }
+    }
+  }, []);
+
+  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    // Clear error for this field
+    if (errors[name]) {
+      setErrors((prev) => {
+        const { [name]: _, ...rest } = prev;
+        return rest;
+      });
+    }
+  };
+
+  const validate = () => {
+    const newErrors: Record<string, string> = {};
+
+    if (!formData.activityLevel) {
+      newErrors.activityLevel = "Please select your activity level";
+    }
+    if (!formData.dietaryStyle) {
+      newErrors.dietaryStyle = "Please select your dietary style";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleNext = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!validate()) return;
+
+    // Save to localStorage
+    const existing = localStorage.getItem("onboarding");
+    const data = existing ? JSON.parse(existing) : {};
+    localStorage.setItem(
+      "onboarding",
+      JSON.stringify({ ...data, ...formData })
+    );
+
+    // Navigate to step 4
+    router.push("/onboarding/step-4");
+  };
+
+  const handlePrevious = () => {
+    // Save current state
+    const existing = localStorage.getItem("onboarding");
+    const data = existing ? JSON.parse(existing) : {};
+    localStorage.setItem(
+      "onboarding",
+      JSON.stringify({ ...data, ...formData })
+    );
+    router.push("/onboarding/step-2");
+  };
+
+  return (
+    <form onSubmit={handleNext} className="space-y-6">
+      {/* Activity Level */}
+      <div>
+        <label htmlFor="activityLevel" className="block text-sm font-medium text-gray-900 mb-2">
+          Activity Level
+        </label>
+        <select
+          id="activityLevel"
+          name="activityLevel"
+          value={formData.activityLevel}
+          onChange={handleChange}
+          className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600 transition ${
+            errors.activityLevel ? "border-red-500" : "border-gray-300"
+          }`}
+        >
+          <option value="">Select your activity level</option>
+          <option value="sedentary">
+            Sedentary (Little to no exercise)
+          </option>
+          <option value="light">
+            Light (Exercise 1-3 days/week)
+          </option>
+          <option value="moderate">
+            Moderate (Exercise 3-5 days/week)
+          </option>
+          <option value="active">
+            Active (Exercise 6-7 days/week)
+          </option>
+          <option value="very_active">
+            Very Active (Intense exercise 6-7 days/week)
+          </option>
+        </select>
+        {errors.activityLevel && (
+          <p className="text-red-600 text-sm mt-1">{errors.activityLevel}</p>
+        )}
+      </div>
+
+      {/* Dietary Style */}
+      <div>
+        <label htmlFor="dietaryStyle" className="block text-sm font-medium text-gray-900 mb-2">
+          Dietary Style
+        </label>
+        <select
+          id="dietaryStyle"
+          name="dietaryStyle"
+          value={formData.dietaryStyle}
+          onChange={handleChange}
+          className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600 transition ${
+            errors.dietaryStyle ? "border-red-500" : "border-gray-300"
+          }`}
+        >
+          <option value="">Select your dietary style</option>
+          <option value="omnivore">Omnivore (No restrictions)</option>
+          <option value="vegetarian">Vegetarian (No meat)</option>
+          <option value="pescatarian">Pescatarian (Fish/seafood ok)</option>
+        </select>
+        {errors.dietaryStyle && (
+          <p className="text-red-600 text-sm mt-1">{errors.dietaryStyle}</p>
+        )}
+      </div>
+
+      {/* Navigation */}
+      <div className="flex gap-4 pt-6 border-t">
+        <button
+          type="button"
+          onClick={handlePrevious}
+          className="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-900 font-semibold py-3 rounded-lg transition"
+        >
+          Previous
+        </button>
+        <button
+          type="submit"
+          className="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 rounded-lg transition"
+        >
+          Next
+        </button>
+      </div>
+    </form>
+  );
+}

@@ -1,10 +1,7 @@
-// Placeholder for NextAuth route handler
-// To be implemented in Phase 2 (Auth + Onboarding)
+import NextAuth from "next-auth";
+import { authOptions } from "./options";
 
-export async function GET() {
-  return new Response("Not yet implemented", { status: 501 });
-}
+const handler = NextAuth(authOptions);
 
-export async function POST() {
-  return new Response("Not yet implemented", { status: 501 });
-}
+export { handler as GET, handler as POST };
+

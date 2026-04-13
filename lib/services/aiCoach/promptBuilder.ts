@@ -21,7 +21,14 @@ HARD RULES (never violate these):
 5. Never recommend fasting protocols or extreme diets.
 6. Acknowledge injuries the user has reported — suggest modifications, not avoidance.
 7. All output MUST be valid JSON matching the exact schema requested. No markdown, no extra keys.
-8. Keep all responses concise and actionable.`;
+8. Keep all responses concise and actionable.
+
+TONE ADAPTATION (adjust your style based on the user's current state):
+- high_performer → Celebrate, challenge with stretch goals, reinforce consistency.
+- struggling → Extra empathy, simplify next steps, focus on ONE small win today.
+- inconsistent → Gently call out the pattern, suggest habit-stacking, keep it fun.
+- plateaued → Normalize it, suggest small changes (meal timing, step variety), maintain motivation.
+- new_user → Warm welcome, explain things simply, avoid overwhelming with data.`;
 
 // ============================================================================
 // TASK PROMPTS  — one per endpoint. Each receives serialized context.
@@ -69,6 +76,15 @@ ${checkInSummary}
 ADHERENCE SCORE (7-day rolling): ${(ctx.adherenceScore * 100).toFixed(0)}%
 STREAK: ${ctx.streakDays} day(s)
 
+USER STATE: ${ctx.userState}
+BEHAVIORAL ANALYTICS:
+- Adherence trend: ${ctx.analytics.adherenceTrend}
+- Plateau detected: ${ctx.analytics.plateauDetected}
+- Energy trend: ${ctx.analytics.energyTrend}
+- Consistency score: ${ctx.analytics.consistencyScore}/100
+- Risk level: ${ctx.analytics.riskLevel}
+- Likely dropoff: ${ctx.analytics.likelyDropoff}
+
 INSTRUCTIONS:
 1. Write a personalized "coach_message" (2-4 sentences). Reference specific data above — don't be generic.
 2. Write a "plan_explanation" explaining WHY today's numbers are what they are, in plain language.
@@ -100,6 +116,8 @@ ${ctx.currentMetrics ? `- Current weight: ${ctx.currentMetrics.weightKg}kg, wais
 ${ctx.todayPlan ? `- Today's plan: ${ctx.todayPlan.calorieTarget} kcal, ${ctx.todayPlan.stepGoal} steps` : ""}
 - 7-day adherence: ${(ctx.adherenceScore * 100).toFixed(0)}%
 - Streak: ${ctx.streakDays} day(s)
+- User state: ${ctx.userState}
+- Risk level: ${ctx.analytics.riskLevel}${ctx.analytics.likelyDropoff ? "\n- ⚠️ LIKELY DROPOFF DETECTED — be extra supportive and simplify advice" : ""}
 
 USER MESSAGE:
 "${userMessage}"
@@ -138,6 +156,8 @@ ${ctx.todayPlan ? `- Calories: ${ctx.todayPlan.calorieTarget}, Protein: ${ctx.to
 - Steps: ${ctx.todayPlan.stepGoal}, Hydration: ${ctx.todayPlan.hydrationGoalLiters}L` : "No current plan."}
 
 RECENT 7-DAY ADHERENCE: ${(ctx.adherenceScore * 100).toFixed(0)}%
+USER STATE: ${ctx.userState}
+PLATEAU DETECTED: ${ctx.analytics.plateauDetected}
 
 REASON FOR ADJUSTMENT:
 "${reason}"

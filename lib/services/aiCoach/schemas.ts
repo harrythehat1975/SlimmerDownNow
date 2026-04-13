@@ -75,3 +75,39 @@ export const aiAdjustmentResponseSchema = z.object({
 });
 
 export type AiAdjustmentResponse = z.infer<typeof aiAdjustmentResponseSchema>;
+
+// ============================================================================
+// User State — daily categorisation driving coaching tone & strategy
+// ============================================================================
+
+export const USER_STATES = [
+  "high_performer",
+  "struggling",
+  "inconsistent",
+  "plateaued",
+  "new_user",
+] as const;
+
+export const userStateSchema = z.enum(USER_STATES);
+
+export type UserState = z.infer<typeof userStateSchema>;
+
+// ============================================================================
+// Behavioral Analytics Schema
+// Derived from check-in history to feed into coaching decisions.
+// ============================================================================
+
+export const behavioralAnalyticsSchema = z.object({
+  userState: userStateSchema,
+  adherenceTrend: z.enum(["improving", "declining", "stable"]),
+  plateauDetected: z.boolean(),
+  energyTrend: z.enum(["up", "down"]),
+  consistencyScore: z
+    .number()
+    .min(0, "Consistency score cannot be negative")
+    .max(100, "Consistency score cannot exceed 100"),
+  riskLevel: z.enum(["low", "medium", "high"]),
+  likelyDropoff: z.boolean(),
+});
+
+export type BehavioralAnalytics = z.infer<typeof behavioralAnalyticsSchema>;

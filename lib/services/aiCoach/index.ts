@@ -23,11 +23,16 @@ export {
   aiCoachResponseSchema,
   aiChatResponseSchema,
   aiAdjustmentResponseSchema,
+  behavioralAnalyticsSchema,
+  userStateSchema,
+  USER_STATES,
 } from "./schemas";
 export type {
   AiCoachResponse,
   AiChatResponse,
   AiAdjustmentResponse,
+  BehavioralAnalytics,
+  UserState,
 } from "./schemas";
 export {
   enforceAdjustmentBounds,

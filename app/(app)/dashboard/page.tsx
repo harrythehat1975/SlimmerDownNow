@@ -93,14 +93,14 @@ export default function DashboardPage() {
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-96">
-        <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+        <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-moss-500"></div>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="bg-red-50 border border-red-200 text-red-700 px-6 py-4 rounded-lg">
+      <div className="bg-red-50/60 border border-red-200 text-red-700 px-6 py-4 rounded-zen">
         {error}
       </div>
     );
@@ -109,11 +109,11 @@ export default function DashboardPage() {
   return (
     <div className="grid gap-8">
       {/* Welcome Section */}
-      <div className="bg-gradient-to-r from-indigo-600 to-blue-600 rounded-lg shadow-lg p-8 text-white">
-        <h1 className="text-3xl font-bold mb-2">
-          Welcome back, {userMetrics?.firstName}!
+      <div className="bg-gradient-to-r from-zen-600 to-moss-600 rounded-zen shadow-zen-lg p-8 text-white">
+        <h1 className="text-3xl font-light mb-2">
+          Welcome back, {userMetrics?.firstName} 🌿
         </h1>
-        <p className="text-indigo-100">
+        <p className="text-white/80">
           Let&apos;s work towards your waist loss goal today
         </p>
       </div>
@@ -121,71 +121,71 @@ export default function DashboardPage() {
       {/* Today's Goals Grid */}
       <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
         {/* Calories */}
-        <div className="bg-white rounded-lg shadow-sm p-6 border-l-4 border-indigo-600">
+        <div className="bg-white/80 backdrop-blur-sm rounded-zen shadow-zen p-6 border-l-4 border-moss-500">
           <div className="flex justify-between items-start mb-2">
-            <h3 className="text-gray-600 font-medium">Calories</h3>
+            <h3 className="text-zen-500 font-medium">Calories</h3>
             <span className="text-2xl">🔥</span>
           </div>
-          <p className="text-3xl font-bold text-gray-900">
+          <p className="text-3xl font-light text-zen-900">
             {dailyPlan?.calorieTarget || "—"}
           </p>
-          <p className="text-sm text-gray-500 mt-1">Target kcal</p>
+          <p className="text-sm text-zen-400 mt-1">Target kcal</p>
         </div>
 
         {/* Protein */}
-        <div className="bg-white rounded-lg shadow-sm p-6 border-l-4 border-blue-600">
+        <div className="bg-white/80 backdrop-blur-sm rounded-zen shadow-zen p-6 border-l-4 border-water-500">
           <div className="flex justify-between items-start mb-2">
-            <h3 className="text-gray-600 font-medium">Protein</h3>
+            <h3 className="text-zen-500 font-medium">Protein</h3>
             <span className="text-2xl">💪</span>
           </div>
-          <p className="text-3xl font-bold text-gray-900">
+          <p className="text-3xl font-light text-zen-900">
             {dailyPlan?.proteinTargetG || "—"}g
           </p>
-          <p className="text-sm text-gray-500 mt-1">Daily target</p>
+          <p className="text-sm text-zen-400 mt-1">Daily target</p>
         </div>
 
         {/* Steps */}
-        <div className="bg-white rounded-lg shadow-sm p-6 border-l-4 border-green-600">
+        <div className="bg-white/80 backdrop-blur-sm rounded-zen shadow-zen p-6 border-l-4 border-moss-400">
           <div className="flex justify-between items-start mb-2">
-            <h3 className="text-gray-600 font-medium">Steps</h3>
+            <h3 className="text-zen-500 font-medium">Steps</h3>
             <span className="text-2xl">👟</span>
           </div>
-          <p className="text-3xl font-bold text-gray-900">
+          <p className="text-3xl font-light text-zen-900">
             {dailyPlan?.stepGoal?.toLocaleString() || "—"}
           </p>
-          <p className="text-sm text-gray-500 mt-1">Daily goal</p>
+          <p className="text-sm text-zen-400 mt-1">Daily goal</p>
         </div>
 
         {/* Hydration */}
-        <div className="bg-white rounded-lg shadow-sm p-6 border-l-4 border-cyan-600">
+        <div className="bg-white/80 backdrop-blur-sm rounded-zen shadow-zen p-6 border-l-4 border-water-400">
           <div className="flex justify-between items-start mb-2">
-            <h3 className="text-gray-600 font-medium">Hydration</h3>
+            <h3 className="text-zen-500 font-medium">Hydration</h3>
             <span className="text-2xl">💧</span>
           </div>
-          <p className="text-3xl font-bold text-gray-900">
+          <p className="text-3xl font-light text-zen-900">
             {dailyPlan?.hydrationGoalLiters || "—"}L
           </p>
-          <p className="text-sm text-gray-500 mt-1">Daily target</p>
+          <p className="text-sm text-zen-400 mt-1">Daily target</p>
         </div>
       </div>
 
       {/* Macronutrients Breakdown */}
-      <div className="bg-white rounded-lg shadow-sm p-8">
-        <h2 className="text-2xl font-bold text-gray-900 mb-6">
+      <div className="bg-white/80 backdrop-blur-sm rounded-zen shadow-zen p-8">
+        <h2 className="text-2xl font-light text-zen-900 mb-6">
           Macronutrient Targets
         </h2>
         <div className="grid md:grid-cols-3 gap-6">
           {/* Protein */}
           <div>
             <div className="flex justify-between mb-2">
-              <span className="text-gray-600 font-medium">Protein</span>
-              <span className="text-gray-900 font-bold">
+              <span className="text-zen-500 font-medium">Protein</span>
+              <span className="text-zen-900 font-semibold">
                 {dailyPlan?.proteinTargetG || 0}g
               </span>
             </div>
-            <div className="w-full bg-gray-200 rounded-full h-2">
+            <div className="w-full bg-stone-200 rounded-full h-2">
               <div
-                className="bg-blue-600 h-2 rounded-full"
+                className="bg-water-500 h-2 rounded-full"
                 style={{
                   width: `${
                     ((dailyPlan?.proteinTargetG || 0) /
@@ -200,14 +200,14 @@ export default function DashboardPage() {
           {/* Carbs */}
           <div>
             <div className="flex justify-between mb-2">
-              <span className="text-gray-600 font-medium">Carbs</span>
-              <span className="text-gray-900 font-bold">
+              <span className="text-zen-500 font-medium">Carbs</span>
+              <span className="text-zen-900 font-semibold">
                 {dailyPlan?.carbTargetG || 0}g
               </span>
             </div>
-            <div className="w-full bg-gray-200 rounded-full h-2">
+            <div className="w-full bg-stone-200 rounded-full h-2">
               <div
-                className="bg-amber-600 h-2 rounded-full"
+                className="bg-amber-500 h-2 rounded-full"
                 style={{
                   width: `${
                     ((dailyPlan?.carbTargetG || 0) /
@@ -222,14 +222,14 @@ export default function DashboardPage() {
           {/* Fats */}
           <div>
             <div className="flex justify-between mb-2">
-              <span className="text-gray-600 font-medium">Fats</span>
-              <span className="text-gray-900 font-bold">
+              <span className="text-zen-500 font-medium">Fats</span>
+              <span className="text-zen-900 font-semibold">
                 {dailyPlan?.fatTargetG || 0}g
               </span>
             </div>
-            <div className="w-full bg-gray-200 rounded-full h-2">
+            <div className="w-full bg-stone-200 rounded-full h-2">
               <div
-                className="bg-red-600 h-2 rounded-full"
+                className="bg-rose-400 h-2 rounded-full"
                 style={{
                   width: `${
                     ((dailyPlan?.fatTargetG || 0) /
@@ -245,24 +245,24 @@ export default function DashboardPage() {
 
       {/* AI Coach Message */}
       {coachLoading ? (
-        <div className="bg-indigo-50 border-l-4 border-indigo-600 rounded-lg p-6 animate-pulse">
-          <div className="h-5 bg-indigo-200 rounded w-48 mb-3"></div>
-          <div className="h-4 bg-indigo-100 rounded w-full mb-2"></div>
-          <div className="h-4 bg-indigo-100 rounded w-3/4"></div>
+        <div className="bg-moss-50/60 border-l-4 border-moss-500 rounded-zen p-6 animate-pulse">
+          <div className="h-5 bg-moss-200 rounded w-48 mb-3"></div>
+          <div className="h-4 bg-moss-100 rounded w-full mb-2"></div>
+          <div className="h-4 bg-moss-100 rounded w-3/4"></div>
         </div>
       ) : coachData ? (
-        <div className="bg-indigo-50 border-l-4 border-indigo-600 rounded-lg p-6">
-          <h3 className="text-lg font-semibold text-indigo-900 mb-2">
-            🤖 Your Coach&apos;s Message Today
+        <div className="bg-moss-50/60 border-l-4 border-moss-500 rounded-zen p-6">
+          <h3 className="text-lg font-medium text-moss-900 mb-2">
+            🌱 Your Coach&apos;s Message Today
           </h3>
-          <p className="text-indigo-800 mb-4">{coachData.coach_message}</p>
+          <p className="text-moss-800 mb-4">{coachData.coach_message}</p>
 
           {/* Plan Explanation */}
           <details className="mb-3">
-            <summary className="cursor-pointer text-sm font-medium text-indigo-700 hover:text-indigo-900 transition">
+            <summary className="cursor-pointer text-sm font-medium text-moss-700 hover:text-moss-900 transition">
               💡 Why this plan?
             </summary>
-            <p className="mt-2 text-sm text-indigo-700 pl-4 border-l-2 border-indigo-300">
+            <p className="mt-2 text-sm text-moss-700 pl-4 border-l-2 border-moss-300">
               {coachData.plan_explanation}
             </p>
           </details>
@@ -270,8 +270,8 @@ export default function DashboardPage() {
           {/* Tips */}
           {coachData.tips.length > 0 && (
             <div className="mt-3">
-              <p className="text-sm font-medium text-indigo-800 mb-1">Today&apos;s tips:</p>
-              <ul className="list-disc list-inside text-sm text-indigo-700 space-y-1">
+              <p className="text-sm font-medium text-moss-800 mb-1">Today&apos;s tips:</p>
+              <ul className="list-disc list-inside text-sm text-moss-700 space-y-1">
                 {coachData.tips.map((tip, i) => (
                   <li key={i}>{tip}</li>
                 ))}
@@ -281,7 +281,7 @@ export default function DashboardPage() {
 
           {/* Warnings */}
           {coachData.warnings.length > 0 && (
-            <div className="mt-3 bg-amber-50 border border-amber-200 rounded p-3">
+            <div className="mt-3 bg-amber-50/60 border border-amber-200 rounded-zen p-3">
               {coachData.warnings.map((w, i) => (
                 <p key={i} className="text-sm text-amber-800">⚠️ {w}</p>
               ))}
@@ -289,11 +289,11 @@ export default function DashboardPage() {
           )}
         </div>
       ) : dailyPlan?.coachingTip ? (
-        <div className="bg-blue-50 border-l-4 border-blue-600 rounded-lg p-6">
-          <h3 className="text-lg font-semibold text-blue-900 mb-2">
+        <div className="bg-water-50/60 border-l-4 border-water-500 rounded-zen p-6">
+          <h3 className="text-lg font-medium text-water-900 mb-2">
             💡 Today&apos;s Tip
           </h3>
-          <p className="text-blue-800">{dailyPlan.coachingTip}</p>
+          <p className="text-water-800">{dailyPlan.coachingTip}</p>
         </div>
       ) : null}
 
@@ -301,11 +301,11 @@ export default function DashboardPage() {
       <div className="flex gap-4">
         <button
           onClick={() => router.push("/checkin")}
-          className="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 rounded-lg transition"
+          className="flex-1 bg-moss-500 hover:bg-moss-600 text-white font-medium py-3 rounded-zen transition-all duration-300 shadow-zen"
         >
           Log Daily Check-In
         </button>
-        <button className="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-900 font-semibold py-3 rounded-lg transition">
+        <button className="flex-1 bg-stone-100 hover:bg-stone-200 text-zen-800 font-medium py-3 rounded-zen transition-all duration-300">
           View Progress
         </button>
       </div>

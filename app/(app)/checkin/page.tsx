@@ -106,12 +106,12 @@ export default function CheckInPage() {
   if (loading) {
     return (
       <div className="max-w-2xl mx-auto">
-        <div className="bg-white rounded-lg shadow-sm p-8 animate-pulse">
-          <div className="h-8 bg-gray-200 rounded w-1/2 mb-4"></div>
-          <div className="h-4 bg-gray-200 rounded w-3/4 mb-8"></div>
+        <div className="bg-white/80 backdrop-blur-sm rounded-zen shadow-zen p-8 animate-pulse">
+          <div className="h-8 bg-stone-200 rounded w-1/2 mb-4"></div>
+          <div className="h-4 bg-stone-200 rounded w-3/4 mb-8"></div>
           <div className="space-y-4">
             {[...Array(6)].map((_, i) => (
-              <div key={i} className="h-12 bg-gray-200 rounded"></div>
+              <div key={i} className="h-12 bg-stone-200 rounded"></div>
             ))}
           </div>
         </div>
@@ -122,10 +122,10 @@ export default function CheckInPage() {
   if (success) {
     return (
       <div className="max-w-2xl mx-auto">
-        <div className="bg-white rounded-lg shadow-sm p-8 text-center">
-          <div className="text-5xl mb-4">✅</div>
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">Check-In Saved!</h2>
-          <p className="text-gray-600">Great job staying consistent. Redirecting to dashboard...</p>
+        <div className="bg-white/80 backdrop-blur-sm rounded-zen shadow-zen p-8 text-center">
+          <div className="text-5xl mb-4">🌿</div>
+          <h2 className="text-2xl font-light text-zen-900 mb-2">Check-In Saved!</h2>
+          <p className="text-zen-500">Great job staying consistent. Redirecting to dashboard...</p>
         </div>
       </div>
     );
@@ -140,11 +140,11 @@ export default function CheckInPage() {
 
   return (
     <div className="max-w-2xl mx-auto">
-      <div className="bg-white rounded-lg shadow-sm p-6 mb-6 border-l-4 border-indigo-600">
-        <h1 className="text-2xl font-bold text-gray-900">
-          📋 Daily Check-In
+      <div className="bg-white/80 backdrop-blur-sm rounded-zen shadow-zen p-6 mb-6 border-l-4 border-moss-500">
+        <h1 className="text-2xl font-light text-zen-900">
+          🍃 Daily Check-In
         </h1>
-        <p className="text-gray-600 text-sm mt-1">
+        <p className="text-zen-500 text-sm mt-1">
           {alreadyDone
             ? "You already checked in today — update your entry below."
             : "Track how you're feeling today. This helps your AI coach personalise your plan."}
@@ -152,18 +152,18 @@ export default function CheckInPage() {
       </div>
 
       {error && (
-        <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded text-red-700 text-sm">
+        <div className="mb-4 p-3 bg-red-50/60 border border-red-200 rounded-zen text-red-700 text-sm">
           {error}
         </div>
       )}
 
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Measurements (optional) */}
-        <div className="bg-white rounded-lg shadow-sm p-6">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">📏 Measurements (optional)</h2>
+        <div className="bg-white/80 backdrop-blur-sm rounded-zen shadow-zen p-6">
+          <h2 className="text-lg font-medium text-zen-900 mb-4">📏 Measurements (optional)</h2>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Weight (kg)</label>
+              <label className="block text-sm font-medium text-zen-700 mb-1">Weight (kg)</label>
               <input
                 type="number"
                 name="weight"
@@ -171,11 +171,11 @@ export default function CheckInPage() {
                 onChange={handleChange}
                 step="0.1"
                 placeholder="e.g. 80.5"
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-stone-300 rounded-zen focus:ring-2 focus:ring-moss-400/50 focus:border-moss-400 bg-white/60"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Waist (cm)</label>
+              <label className="block text-sm font-medium text-zen-700 mb-1">Waist (cm)</label>
               <input
                 type="number"
                 name="waistCm"
@@ -183,20 +183,20 @@ export default function CheckInPage() {
                 onChange={handleChange}
                 step="0.1"
                 placeholder="e.g. 85.0"
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-stone-300 rounded-zen focus:ring-2 focus:ring-moss-400/50 focus:border-moss-400 bg-white/60"
               />
             </div>
           </div>
         </div>
 
         {/* How You Feel */}
-        <div className="bg-white rounded-lg shadow-sm p-6">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">🧠 How Are You Feeling?</h2>
+        <div className="bg-white/80 backdrop-blur-sm rounded-zen shadow-zen p-6">
+          <h2 className="text-lg font-medium text-zen-900 mb-4">🧠 How Are You Feeling?</h2>
           <div className="space-y-5">
             {/* Sleep */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Sleep: <span className="font-bold text-indigo-600">{form.sleepHours} hours</span>
+              <label className="block text-sm font-medium text-zen-700 mb-1">
+                Sleep: <span className="font-semibold text-moss-600">{form.sleepHours} hours</span>
               </label>
               <input
                 type="range"
@@ -206,18 +206,18 @@ export default function CheckInPage() {
                 step="0.5"
                 value={form.sleepHours}
                 onChange={handleChange}
-                className="w-full accent-indigo-600"
+                className="w-full accent-moss-500"
               />
-              <div className="flex justify-between text-xs text-gray-400">
+              <div className="flex justify-between text-xs text-zen-400">
                 <span>0h</span><span>6h</span><span>12h</span>
               </div>
             </div>
 
             {/* Stress */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Stress: <span className="font-bold text-indigo-600">{form.stressLevel}/10</span>
-                <span className="text-xs text-gray-400 ml-2">
+              <label className="block text-sm font-medium text-zen-700 mb-1">
+                Stress: <span className="font-semibold text-moss-600">{form.stressLevel}/10</span>
+                <span className="text-xs text-zen-400 ml-2">
                   ({sliderLabel(form.stressLevel, ["Low", "Moderate", "High"])})
                 </span>
               </label>
@@ -228,15 +228,15 @@ export default function CheckInPage() {
                 max="10"
                 value={form.stressLevel}
                 onChange={handleChange}
-                className="w-full accent-indigo-600"
+                className="w-full accent-moss-500"
               />
             </div>
 
             {/* Energy */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Energy: <span className="font-bold text-indigo-600">{form.energyLevel}/10</span>
-                <span className="text-xs text-gray-400 ml-2">
+              <label className="block text-sm font-medium text-zen-700 mb-1">
+                Energy: <span className="font-semibold text-moss-600">{form.energyLevel}/10</span>
+                <span className="text-xs text-zen-400 ml-2">
                   ({sliderLabel(form.energyLevel, ["Low", "Moderate", "High"])})
                 </span>
               </label>
@@ -247,15 +247,15 @@ export default function CheckInPage() {
                 max="10"
                 value={form.energyLevel}
                 onChange={handleChange}
-                className="w-full accent-indigo-600"
+                className="w-full accent-moss-500"
               />
             </div>
 
             {/* Soreness */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Soreness: <span className="font-bold text-indigo-600">{form.sorenessLevel}/10</span>
-                <span className="text-xs text-gray-400 ml-2">
+              <label className="block text-sm font-medium text-zen-700 mb-1">
+                Soreness: <span className="font-semibold text-moss-600">{form.sorenessLevel}/10</span>
+                <span className="text-xs text-zen-400 ml-2">
                   ({sliderLabel(form.sorenessLevel, ["Minimal", "Moderate", "Intense"])})
                 </span>
               </label>
@@ -266,15 +266,15 @@ export default function CheckInPage() {
                 max="10"
                 value={form.sorenessLevel}
                 onChange={handleChange}
-                className="w-full accent-indigo-600"
+                className="w-full accent-moss-500"
               />
             </div>
 
             {/* Bloating */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Bloating: <span className="font-bold text-indigo-600">{form.bloatingLevel}/10</span>
-                <span className="text-xs text-gray-400 ml-2">
+              <label className="block text-sm font-medium text-zen-700 mb-1">
+                Bloating: <span className="font-semibold text-moss-600">{form.bloatingLevel}/10</span>
+                <span className="text-xs text-zen-400 ml-2">
                   ({sliderLabel(form.bloatingLevel, ["None", "Some", "Significant"])})
                 </span>
               </label>
@@ -285,19 +285,19 @@ export default function CheckInPage() {
                 max="10"
                 value={form.bloatingLevel}
                 onChange={handleChange}
-                className="w-full accent-indigo-600"
+                className="w-full accent-moss-500"
               />
             </div>
           </div>
         </div>
 
         {/* Activity & Adherence */}
-        <div className="bg-white rounded-lg shadow-sm p-6">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">🏃 Activity & Adherence</h2>
+        <div className="bg-white/80 backdrop-blur-sm rounded-zen shadow-zen p-6">
+          <h2 className="text-lg font-medium text-zen-900 mb-4">🏃 Activity & Adherence</h2>
           <div className="space-y-5">
             {/* Steps */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Steps Completed</label>
+              <label className="block text-sm font-medium text-zen-700 mb-1">Steps Completed</label>
               <input
                 type="number"
                 name="stepsCompleted"
@@ -305,14 +305,14 @@ export default function CheckInPage() {
                 onChange={handleChange}
                 min="0"
                 placeholder="e.g. 8000"
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-stone-300 rounded-zen focus:ring-2 focus:ring-moss-400/50 focus:border-moss-400 bg-white/60"
               />
             </div>
 
             {/* Diet Adherence */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Diet Adherence: <span className="font-bold text-indigo-600">{Math.round(parseFloat(form.dietAdherence) * 100)}%</span>
+              <label className="block text-sm font-medium text-zen-700 mb-1">
+                Diet Adherence: <span className="font-semibold text-moss-600">{Math.round(parseFloat(form.dietAdherence) * 100)}%</span>
               </label>
               <input
                 type="range"
@@ -322,17 +322,17 @@ export default function CheckInPage() {
                 step="0.05"
                 value={form.dietAdherence}
                 onChange={handleChange}
-                className="w-full accent-indigo-600"
+                className="w-full accent-moss-500"
               />
-              <div className="flex justify-between text-xs text-gray-400">
+              <div className="flex justify-between text-xs text-zen-400">
                 <span>0%</span><span>50%</span><span>100%</span>
               </div>
             </div>
 
             {/* Workout Adherence */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Workout Adherence: <span className="font-bold text-indigo-600">{Math.round(parseFloat(form.workoutAdherence) * 100)}%</span>
+              <label className="block text-sm font-medium text-zen-700 mb-1">
+                Workout Adherence: <span className="font-semibold text-moss-600">{Math.round(parseFloat(form.workoutAdherence) * 100)}%</span>
               </label>
               <input
                 type="range"
@@ -342,9 +342,9 @@ export default function CheckInPage() {
                 step="0.05"
                 value={form.workoutAdherence}
                 onChange={handleChange}
-                className="w-full accent-indigo-600"
+                className="w-full accent-moss-500"
               />
-              <div className="flex justify-between text-xs text-gray-400">
+              <div className="flex justify-between text-xs text-zen-400">
                 <span>0%</span><span>50%</span><span>100%</span>
               </div>
             </div>
@@ -352,8 +352,8 @@ export default function CheckInPage() {
         </div>
 
         {/* Notes */}
-        <div className="bg-white rounded-lg shadow-sm p-6">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">📝 Notes (optional)</h2>
+        <div className="bg-white/80 backdrop-blur-sm rounded-zen shadow-zen p-6">
+          <h2 className="text-lg font-medium text-zen-900 mb-4">📝 Notes (optional)</h2>
           <textarea
             name="notes"
             value={form.notes}
@@ -361,7 +361,7 @@ export default function CheckInPage() {
             placeholder="Anything else? How did you feel about today?"
             rows={3}
             maxLength={500}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+            className="w-full px-3 py-2 border border-stone-300 rounded-zen focus:ring-2 focus:ring-moss-400/50 focus:border-moss-400 bg-white/60"
           />
         </div>
 
@@ -369,7 +369,7 @@ export default function CheckInPage() {
         <button
           type="submit"
           disabled={submitting}
-          className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 rounded-lg transition disabled:opacity-50"
+          className="w-full bg-moss-500 hover:bg-moss-600 text-white font-medium py-3 rounded-zen transition-all duration-300 shadow-zen disabled:opacity-50"
         >
           {submitting
             ? "Saving..."

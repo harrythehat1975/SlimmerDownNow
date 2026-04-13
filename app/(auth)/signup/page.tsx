@@ -62,22 +62,25 @@ export default function SignupPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
-      <div className="w-full max-w-md bg-white rounded-lg shadow-lg p-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Sign Up</h1>
-        <p className="text-gray-600 mb-6">
-          Create an account to get started with personalized waist loss coaching
-        </p>
+    <div className="min-h-screen bg-gradient-to-br from-zen-50 via-stone-50 to-moss-50 flex items-center justify-center p-4">
+      <div className="w-full max-w-md bg-white/80 backdrop-blur-sm rounded-zen shadow-zen-md p-8 border border-stone-100">
+        <div className="text-center mb-6">
+          <span className="text-3xl">🌿</span>
+          <h1 className="text-2xl font-light text-zen-900 mt-2">Create Your Account</h1>
+          <p className="text-zen-500 text-sm mt-1">
+            Begin your mindful waist loss journey
+          </p>
+        </div>
 
         {error && (
-          <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded text-red-700 text-sm">
+          <div className="mb-4 p-3 bg-red-50/80 border border-red-200/60 rounded-zen text-red-700/80 text-sm">
             {error}
           </div>
         )}
 
         <form onSubmit={handleSignup} className="space-y-4">
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="email" className="block text-sm font-medium text-zen-700 mb-1">
               Email
             </label>
             <input
@@ -86,14 +89,14 @@ export default function SignupPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="you@example.com"
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-2.5 border border-stone-300 rounded-zen focus:ring-2 focus:ring-moss-400/50 focus:border-moss-400 transition-all duration-200 bg-white/60"
               required
               disabled={loading}
             />
           </div>
 
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="password" className="block text-sm font-medium text-zen-700 mb-1">
               Password
             </label>
             <input
@@ -102,14 +105,14 @@ export default function SignupPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="At least 8 characters"
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-2.5 border border-stone-300 rounded-zen focus:ring-2 focus:ring-moss-400/50 focus:border-moss-400 transition-all duration-200 bg-white/60"
               required
               disabled={loading}
             />
           </div>
 
           <div>
-            <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="confirmPassword" className="block text-sm font-medium text-zen-700 mb-1">
               Confirm Password
             </label>
             <input
@@ -118,7 +121,7 @@ export default function SignupPage() {
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               placeholder="Confirm your password"
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-2.5 border border-stone-300 rounded-zen focus:ring-2 focus:ring-moss-400/50 focus:border-moss-400 transition-all duration-200 bg-white/60"
               required
               disabled={loading}
             />
@@ -127,16 +130,16 @@ export default function SignupPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition disabled:opacity-50"
+            className="w-full px-4 py-2.5 bg-moss-500 text-white rounded-zen font-medium hover:bg-moss-600 transition-all duration-300 disabled:opacity-50 shadow-zen"
           >
-            {loading ? "Creating account..." : "Sign Up"}
+            {loading ? "Creating account..." : "Begin Journey"}
           </button>
         </form>
 
-        <p className="text-center text-sm text-gray-600 mt-6">
-          Already have an account?{" "}
-          <Link href="/login" className="text-blue-600 hover:underline">
-            Log in
+        <p className="text-center text-sm text-zen-500 mt-6">
+          Already on the path?{" "}
+          <Link href="/login" className="text-moss-600 hover:text-moss-700 font-medium">
+            Sign in
           </Link>
         </p>
       </div>

@@ -26,10 +26,10 @@ export default function AppLayout({
 
   if (isLoading || status === "loading") {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-zen-50 via-stone-50 to-moss-50">
         <div className="text-center">
-          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
-          <p className="mt-4 text-gray-600">Loading...</p>
+          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-moss-500"></div>
+          <p className="mt-4 text-zen-500 font-light">Finding your balance...</p>
         </div>
       </div>
     );
@@ -45,48 +45,49 @@ export default function AppLayout({
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-zen-50 via-stone-50 to-moss-50/30">
       {/* Navigation */}
-      <nav className="bg-white shadow-sm border-b">
+      <nav className="bg-white/70 backdrop-blur-md border-b border-stone-200/60">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16 items-center">
-            <div className="flex items-center">
-              <h1 className="text-2xl font-bold text-indigo-600">
+            <div className="flex items-center gap-2">
+              <span className="text-xl">🌿</span>
+              <h1 className="text-xl font-light tracking-tight text-zen-800">
                 Slimmer Down Now
               </h1>
             </div>
             <div className="flex items-center gap-6">
               <Link
                 href="/dashboard"
-                className="text-gray-700 hover:text-indigo-600 font-medium transition"
+                className="text-zen-600 hover:text-moss-600 font-medium text-sm transition-all duration-200"
               >
                 Dashboard
               </Link>
               <Link
                 href="/coach"
-                className="text-gray-700 hover:text-indigo-600 font-medium transition"
+                className="text-zen-600 hover:text-moss-600 font-medium text-sm transition-all duration-200"
               >
                 Coach
               </Link>
               <Link
                 href="/checkin"
-                className="text-gray-700 hover:text-indigo-600 font-medium transition"
+                className="text-zen-600 hover:text-moss-600 font-medium text-sm transition-all duration-200"
               >
                 Check-In
               </Link>
               <Link
                 href="/settings"
-                className="text-gray-700 hover:text-indigo-600 font-medium transition"
+                className="text-zen-600 hover:text-moss-600 font-medium text-sm transition-all duration-200"
               >
                 Settings
               </Link>
-              <div className="flex items-center gap-3 pl-6 border-l">
-                <span className="text-sm text-gray-600">{session.user?.email}</span>
+              <div className="flex items-center gap-3 pl-6 border-l border-stone-200">
+                <span className="text-xs text-zen-500">{session.user?.email}</span>
                 <button
                   onClick={handleLogout}
-                  className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg font-medium transition"
+                  className="bg-stone-100 hover:bg-stone-200 text-zen-700 px-3 py-1.5 rounded-zen text-sm font-medium transition-all duration-200"
                 >
-                  Logout
+                  Sign Out
                 </button>
               </div>
             </div>

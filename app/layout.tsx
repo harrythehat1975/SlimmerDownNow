@@ -1,15 +1,15 @@
 import { Providers } from "./providers";
 
 export const metadata = {
-  title: "Slim Down Now - Personalized Waist Loss Coaching",
+  title: "Slimmer Down Now — Mindful Waist Loss Coaching",
   description:
-    "Get personalized daily diet and workout plans to reduce inches around your waist. Track your progress with AI-powered recommendations.",
+    "A calm, personalized approach to reducing inches around your waist. AI-powered daily plans, mindful check-ins, and gentle coaching.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body>
+      <body className="zen-bg">
         <Providers>{children}</Providers>
       </body>
     </html>

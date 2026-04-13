@@ -103,9 +103,9 @@ export default function CoachPage() {
   return (
     <div className="flex flex-col h-[calc(100vh-8rem)]">
       {/* Header */}
-      <div className="bg-white rounded-lg shadow-sm p-4 mb-4 border-l-4 border-indigo-600">
-        <h1 className="text-2xl font-bold text-gray-900">🤖 AI Coach</h1>
-        <p className="text-gray-600 text-sm">
+      <div className="bg-white/80 backdrop-blur-sm rounded-zen shadow-zen p-4 mb-4 border-l-4 border-moss-500">
+        <h1 className="text-2xl font-light text-zen-900">🌱 AI Coach</h1>
+        <p className="text-zen-500 text-sm">
           Ask questions, request plan changes, or get motivation
         </p>
       </div>
@@ -117,7 +117,7 @@ export default function CoachPage() {
             key={qa.label}
             onClick={() => sendMessage(qa.message)}
             disabled={loading}
-            className="bg-white border border-gray-200 hover:border-indigo-400 hover:bg-indigo-50 text-gray-700 text-sm px-4 py-2 rounded-full transition disabled:opacity-50"
+            className="bg-white/80 border border-stone-200 hover:border-moss-400 hover:bg-moss-50/60 text-zen-700 text-sm px-4 py-2 rounded-full transition-all duration-200 disabled:opacity-50"
           >
             {qa.label}
           </button>
@@ -125,21 +125,21 @@ export default function CoachPage() {
       </div>
 
       {/* Messages */}
-      <div className="flex-1 overflow-y-auto bg-white rounded-lg shadow-sm p-4 space-y-4 mb-4">
+      <div className="flex-1 overflow-y-auto bg-white/80 backdrop-blur-sm rounded-zen shadow-zen p-4 space-y-4 mb-4">
         {messages.map((msg, i) => (
           <div
             key={i}
             className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
           >
             <div
-              className={`max-w-[80%] rounded-lg px-4 py-3 ${
+              className={`max-w-[80%] rounded-zen px-4 py-3 ${
                 msg.role === "user"
-                  ? "bg-indigo-600 text-white"
-                  : "bg-gray-100 text-gray-900"
+                  ? "bg-moss-500 text-white"
+                  : "bg-stone-100 text-zen-900"
               }`}
             >
               {msg.role === "coach" && (
-                <p className="text-xs font-semibold text-indigo-600 mb-1">Coach SDN</p>
+                <p className="text-xs font-medium text-moss-600 mb-1">Coach SDN</p>
               )}
               <p className="text-sm whitespace-pre-wrap">{msg.content}</p>
 
@@ -151,7 +151,7 @@ export default function CoachPage() {
                       key={j}
                       onClick={() => handleAction(a.action)}
                       disabled={loading}
-                      className="bg-indigo-100 hover:bg-indigo-200 text-indigo-700 text-xs px-3 py-1 rounded-full transition disabled:opacity-50"
+                      className="bg-moss-100 hover:bg-moss-200 text-moss-700 text-xs px-3 py-1 rounded-full transition-all duration-200 disabled:opacity-50"
                     >
                       {a.label}
                     </button>
@@ -161,7 +161,7 @@ export default function CoachPage() {
 
               {/* Warnings */}
               {msg.warnings && msg.warnings.length > 0 && (
-                <div className="mt-2 bg-amber-50 border border-amber-200 rounded p-2">
+                <div className="mt-2 bg-amber-50/60 border border-amber-200 rounded-zen p-2">
                   {msg.warnings.map((w, j) => (
                     <p key={j} className="text-xs text-amber-800">⚠️ {w}</p>
                   ))}
@@ -180,12 +180,12 @@ export default function CoachPage() {
 
         {loading && (
           <div className="flex justify-start">
-            <div className="bg-gray-100 rounded-lg px-4 py-3">
-              <p className="text-xs font-semibold text-indigo-600 mb-1">Coach SDN</p>
+            <div className="bg-stone-100 rounded-zen px-4 py-3">
+              <p className="text-xs font-medium text-moss-600 mb-1">Coach SDN</p>
               <div className="flex space-x-1">
-                <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: "0ms" }}></div>
-                <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: "150ms" }}></div>
-                <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: "300ms" }}></div>
+                <div className="w-2 h-2 bg-zen-400 rounded-full animate-bounce" style={{ animationDelay: "0ms" }}></div>
+                <div className="w-2 h-2 bg-zen-400 rounded-full animate-bounce" style={{ animationDelay: "150ms" }}></div>
+                <div className="w-2 h-2 bg-zen-400 rounded-full animate-bounce" style={{ animationDelay: "300ms" }}></div>
               </div>
             </div>
           </div>
@@ -202,12 +202,12 @@ export default function CoachPage() {
           onChange={(e) => setInput(e.target.value)}
           placeholder="Ask your coach anything..."
           disabled={loading}
-          className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600 transition disabled:bg-gray-100"
+          className="flex-1 px-4 py-3 border border-stone-300 rounded-zen focus:outline-none focus:ring-2 focus:ring-moss-400/50 focus:border-moss-400 transition-all duration-200 bg-white/60 disabled:bg-stone-50"
         />
         <button
           type="submit"
           disabled={loading || !input.trim()}
-          className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-6 py-3 rounded-lg transition disabled:opacity-50"
+          className="bg-moss-500 hover:bg-moss-600 text-white font-medium px-6 py-3 rounded-zen transition-all duration-300 shadow-zen disabled:opacity-50"
         >
           Send
         </button>

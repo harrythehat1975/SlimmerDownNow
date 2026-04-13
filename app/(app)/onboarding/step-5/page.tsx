@@ -124,15 +124,19 @@ export default function OnboardingStep5() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
+      <div className="mb-2">
+        <h2 className="text-2xl font-light text-zen-900">Preferences</h2>
+        <p className="text-zen-500 text-sm mt-1">Almost done — customize your experience.</p>
+      </div>
       {submitError && (
-        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
+        <div className="bg-red-50/60 border border-red-200 text-red-700 px-4 py-3 rounded-zen">
           {submitError}
         </div>
       )}
 
       {/* Preferred Check-in Time */}
       <div>
-        <label htmlFor="preferredCheckInTime" className="block text-sm font-medium text-gray-900 mb-2">
+        <label htmlFor="preferredCheckInTime" className="block text-sm font-medium text-zen-700 mb-2">
           Preferred Daily Check-in Time
         </label>
         <input
@@ -141,16 +145,16 @@ export default function OnboardingStep5() {
           name="preferredCheckInTime"
           value={formData.preferredCheckInTime}
           onChange={handleChange}
-          className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600 transition ${
-            errors.preferredCheckInTime ? "border-red-500" : "border-gray-300"
+          className={`w-full px-4 py-3 border rounded-zen focus:outline-none focus:ring-2 focus:ring-moss-400/50 focus:border-moss-400 transition-all duration-200 bg-white/60 ${
+            errors.preferredCheckInTime ? "border-red-400" : "border-stone-300"
           }`}
         />
         {errors.preferredCheckInTime && (
-          <p className="text-red-600 text-sm mt-1">
+          <p className="text-red-600/80 text-sm mt-1">
             {errors.preferredCheckInTime}
           </p>
         )}
-        <p className="text-gray-600 text-sm mt-2">
+        <p className="text-zen-500 text-sm mt-2">
           We&apos;ll send you reminders at this time each day
         </p>
       </div>
@@ -163,27 +167,27 @@ export default function OnboardingStep5() {
           name="enableNotifications"
           checked={formData.enableNotifications}
           onChange={handleChange}
-          className="w-5 h-5 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 cursor-pointer"
+          className="w-5 h-5 rounded border-stone-300 text-moss-500 focus:ring-moss-400 cursor-pointer"
         />
-        <label htmlFor="enableNotifications" className="text-sm font-medium text-gray-900 cursor-pointer">
+        <label htmlFor="enableNotifications" className="text-sm font-medium text-zen-700 cursor-pointer">
           Enable daily check-in notifications and motivational tips
         </label>
       </div>
 
       {/* Navigation */}
-      <div className="flex gap-4 pt-6 border-t">
+      <div className="flex gap-4 pt-6 border-t border-stone-200">
         <button
           type="button"
           onClick={handlePrevious}
           disabled={loading}
-          className="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-900 font-semibold py-3 rounded-lg transition disabled:opacity-50"
+          className="flex-1 bg-stone-100 hover:bg-stone-200 text-zen-800 font-medium py-3 rounded-zen transition-all duration-300 disabled:opacity-50"
         >
           Previous
         </button>
         <button
           type="submit"
           disabled={loading}
-          className="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 rounded-lg transition disabled:opacity-50"
+          className="flex-1 bg-moss-500 hover:bg-moss-600 text-white font-medium py-3 rounded-zen transition-all duration-300 shadow-zen disabled:opacity-50"
         >
           {loading ? "Completing..." : "Complete Onboarding"}
         </button>

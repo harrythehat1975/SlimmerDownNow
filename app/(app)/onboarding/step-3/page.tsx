@@ -84,12 +84,12 @@ export default function OnboardingStep3() {
   return (
     <form onSubmit={handleNext} className="space-y-6">
       <div className="mb-2">
-        <h2 className="text-2xl font-light text-zen-900">Lifestyle</h2>
-        <p className="text-zen-500 text-sm mt-1">Tell us about your daily activity and sleep habits.</p>
+        <h2 className="text-2xl font-light text-earth-900">Lifestyle</h2>
+        <p className="text-earth-500 text-sm mt-1">Tell us about your daily activity and sleep habits.</p>
       </div>
       {/* Activity Level */}
       <div>
-        <label htmlFor="activityLevel" className="block text-sm font-medium text-zen-700 mb-2">
+        <label htmlFor="activityLevel" className="block text-sm font-medium text-earth-700 mb-2">
           Activity Level
         </label>
         <select
@@ -97,8 +97,8 @@ export default function OnboardingStep3() {
           name="activityLevel"
           value={formData.activityLevel}
           onChange={handleChange}
-          className={`w-full px-4 py-3 border rounded-zen focus:outline-none focus:ring-2 focus:ring-moss-400/50 focus:border-moss-400 transition-all duration-200 bg-white/60 ${
-            errors.activityLevel ? "border-red-400" : "border-stone-300"
+          className={`w-full px-4 py-3 border rounded-zen focus:outline-none focus:ring-2 focus:ring-sage-400/50 focus:border-sage-400 transition-all duration-200 bg-sand-50 ${
+            errors.activityLevel ? "border-red-400" : "border-sand-300"
           }`}
         >
           <option value="">Select your activity level</option>
@@ -125,7 +125,7 @@ export default function OnboardingStep3() {
 
       {/* Dietary Style */}
       <div>
-        <label htmlFor="dietaryStyle" className="block text-sm font-medium text-zen-700 mb-2">
+        <label htmlFor="dietaryStyle" className="block text-sm font-medium text-earth-700 mb-2">
           Dietary Style
         </label>
         <select
@@ -133,8 +133,8 @@ export default function OnboardingStep3() {
           name="dietaryStyle"
           value={formData.dietaryStyle}
           onChange={handleChange}
-          className={`w-full px-4 py-3 border rounded-zen focus:outline-none focus:ring-2 focus:ring-moss-400/50 focus:border-moss-400 transition-all duration-200 bg-white/60 ${
-            errors.dietaryStyle ? "border-red-400" : "border-stone-300"
+          className={`w-full px-4 py-3 border rounded-zen focus:outline-none focus:ring-2 focus:ring-sage-400/50 focus:border-sage-400 transition-all duration-200 bg-sand-50 ${
+            errors.dietaryStyle ? "border-red-400" : "border-sand-300"
           }`}
         >
           <option value="">Select your dietary style</option>
@@ -148,17 +148,17 @@ export default function OnboardingStep3() {
       </div>
 
       {/* Navigation */}
-      <div className="flex gap-4 pt-6 border-t border-stone-200">
+      <div className="flex gap-4 pt-6 border-t border-sand-200">
         <button
           type="button"
           onClick={handlePrevious}
-          className="flex-1 bg-stone-100 hover:bg-stone-200 text-zen-800 font-medium py-3 rounded-zen transition-all duration-300"
+          className="flex-1 bg-sand-200 hover:bg-sand-300 text-earth-800 font-medium py-3 rounded-zen transition-all duration-300"
         >
           Previous
         </button>
         <button
           type="submit"
-          className="flex-1 bg-moss-500 hover:bg-moss-600 text-white font-medium py-3 rounded-zen transition-all duration-300 shadow-zen"
+          className="flex-1 bg-sage-800 hover:bg-sage-900 text-white font-medium py-3 rounded-zen transition-all duration-300 shadow-zen"
         >
           Next
         </button>

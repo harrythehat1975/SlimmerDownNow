@@ -80,12 +80,12 @@ export default function OnboardingStep1() {
   return (
     <form onSubmit={handleNext} className="space-y-6">
       <div className="mb-2">
-        <h2 className="text-2xl font-light text-zen-900">Personal Info</h2>
-        <p className="text-zen-500 text-sm mt-1">Let&apos;s start with some basics about you.</p>
+        <h2 className="text-2xl font-light text-earth-900">Personal Info</h2>
+        <p className="text-earth-500 text-sm mt-1">Let&apos;s start with some basics about you.</p>
       </div>
       {/* First Name */}
       <div>
-        <label htmlFor="firstName" className="block text-sm font-medium text-zen-700 mb-2">
+        <label htmlFor="firstName" className="block text-sm font-medium text-earth-700 mb-2">
           First Name
         </label>
         <input
@@ -95,8 +95,8 @@ export default function OnboardingStep1() {
           value={formData.firstName}
           onChange={handleChange}
           placeholder="John"
-          className={`w-full px-4 py-3 border rounded-zen focus:outline-none focus:ring-2 focus:ring-moss-400/50 focus:border-moss-400 transition-all duration-200 bg-white/60 ${
-            errors.firstName ? "border-red-400" : "border-stone-300"
+          className={`w-full px-4 py-3 border rounded-zen focus:outline-none focus:ring-2 focus:ring-sage-400/50 focus:border-sage-400 transition-all duration-200 bg-sand-50 ${
+            errors.firstName ? "border-red-400" : "border-sand-300"
           }`}
         />
         {errors.firstName && (
@@ -106,7 +106,7 @@ export default function OnboardingStep1() {
 
       {/* Last Name */}
       <div>
-        <label htmlFor="lastName" className="block text-sm font-medium text-zen-700 mb-2">
+        <label htmlFor="lastName" className="block text-sm font-medium text-earth-700 mb-2">
           Last Name
         </label>
         <input
@@ -116,8 +116,8 @@ export default function OnboardingStep1() {
           value={formData.lastName}
           onChange={handleChange}
           placeholder="Doe"
-          className={`w-full px-4 py-3 border rounded-zen focus:outline-none focus:ring-2 focus:ring-moss-400/50 focus:border-moss-400 transition-all duration-200 bg-white/60 ${
-            errors.lastName ? "border-red-400" : "border-stone-300"
+          className={`w-full px-4 py-3 border rounded-zen focus:outline-none focus:ring-2 focus:ring-sage-400/50 focus:border-sage-400 transition-all duration-200 bg-sand-50 ${
+            errors.lastName ? "border-red-400" : "border-sand-300"
           }`}
         />
         {errors.lastName && (
@@ -127,7 +127,7 @@ export default function OnboardingStep1() {
 
       {/* Sex */}
       <div>
-        <label htmlFor="sex" className="block text-sm font-medium text-zen-700 mb-2">
+        <label htmlFor="sex" className="block text-sm font-medium text-earth-700 mb-2">
           Sex
         </label>
         <select
@@ -135,8 +135,8 @@ export default function OnboardingStep1() {
           name="sex"
           value={formData.sex}
           onChange={handleChange}
-          className={`w-full px-4 py-3 border rounded-zen focus:outline-none focus:ring-2 focus:ring-moss-400/50 focus:border-moss-400 transition-all duration-200 bg-white/60 ${
-            errors.sex ? "border-red-400" : "border-stone-300"
+          className={`w-full px-4 py-3 border rounded-zen focus:outline-none focus:ring-2 focus:ring-sage-400/50 focus:border-sage-400 transition-all duration-200 bg-sand-50 ${
+            errors.sex ? "border-red-400" : "border-sand-300"
           }`}
         >
           <option value="">Select your sex</option>
@@ -150,10 +150,10 @@ export default function OnboardingStep1() {
       </div>
 
       {/* Navigation */}
-      <div className="flex gap-4 pt-6 border-t border-stone-200">
+      <div className="flex gap-4 pt-6 border-t border-sand-200">
         <button
           type="submit"
-          className="flex-1 bg-moss-500 hover:bg-moss-600 text-white font-medium py-3 rounded-zen transition-all duration-300 shadow-zen"
+          className="flex-1 bg-sage-800 hover:bg-sage-900 text-white font-medium py-3 rounded-zen transition-all duration-300 shadow-zen"
         >
           Continue
         </button>

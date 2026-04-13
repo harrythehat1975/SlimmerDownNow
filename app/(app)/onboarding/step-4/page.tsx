@@ -171,48 +171,48 @@ export default function OnboardingStep4() {
   return (
     <form onSubmit={handleNext} className="space-y-6">
       <div className="mb-2">
-        <h2 className="text-2xl font-light text-zen-900">Goals</h2>
-        <p className="text-zen-500 text-sm mt-1">Set your target waist size and timeline.</p>
+        <h2 className="text-2xl font-light text-earth-900">Goals</h2>
+        <p className="text-earth-500 text-sm mt-1">Set your target waist size and timeline.</p>
       </div>
 
       {/* Unit Toggle */}
-      <div className="flex rounded-zen overflow-hidden border border-stone-300">
+      <div className="flex rounded-zen overflow-hidden border border-sand-300">
         <button
           type="button"
           onClick={() => handleUnitSwitch("us")}
           className={`flex-1 py-2.5 text-sm font-medium transition-all duration-200 ${
             unit === "us"
-              ? "bg-moss-500 text-white"
-              : "bg-white/60 text-zen-600 hover:bg-stone-50"
+              ? "bg-sage-800 text-white"
+              : "bg-sand-50 text-earth-600 hover:bg-sand-100"
           }`}
         >
-          🇺🇸 US (inches)
+          US (inches)
         </button>
         <button
           type="button"
           onClick={() => handleUnitSwitch("metric")}
           className={`flex-1 py-2.5 text-sm font-medium transition-all duration-200 ${
             unit === "metric"
-              ? "bg-moss-500 text-white"
-              : "bg-white/60 text-zen-600 hover:bg-stone-50"
+              ? "bg-sage-800 text-white"
+              : "bg-sand-50 text-earth-600 hover:bg-sand-100"
           }`}
         >
-          🌍 Metric (cm)
+          Metric (cm)
         </button>
       </div>
 
       {/* Current Waist Display */}
       {currentWaistCm > 0 && (
-        <div className="bg-stone-50/80 rounded-zen p-4 border border-stone-200">
-          <p className="text-sm text-zen-500">Your current waist size</p>
-          <p className="text-2xl font-light text-zen-900">{currentDisplay}</p>
+        <div className="bg-sand-50 rounded-zen p-4 border border-sand-200">
+          <p className="text-sm text-earth-500">Your current waist size</p>
+          <p className="text-2xl font-light text-earth-900">{currentDisplay}</p>
         </div>
       )}
 
       {/* Target Waist Size */}
       {unit === "metric" ? (
         <div>
-          <label htmlFor="targetWaistCm" className="block text-sm font-medium text-zen-700 mb-2">
+          <label htmlFor="targetWaistCm" className="block text-sm font-medium text-earth-700 mb-2">
             Target Waist Size (cm)
           </label>
           <input
@@ -226,8 +226,8 @@ export default function OnboardingStep4() {
             placeholder={currentWaistCm > 0 ? String(Math.round((currentWaistCm - 10) * 10) / 10) : "75"}
             min="1"
             step="0.1"
-            className={`w-full px-4 py-3 border rounded-zen focus:outline-none focus:ring-2 focus:ring-moss-400/50 focus:border-moss-400 transition-all duration-200 bg-white/60 ${
-              errors.targetWaist ? "border-red-400" : "border-stone-300"
+            className={`w-full px-4 py-3 border rounded-zen focus:outline-none focus:ring-2 focus:ring-sage-400/50 focus:border-sage-400 transition-all duration-200 bg-sand-50 ${
+              errors.targetWaist ? "border-red-400" : "border-sand-300"
             }`}
           />
           {errors.targetWaist && (
@@ -236,7 +236,7 @@ export default function OnboardingStep4() {
         </div>
       ) : (
         <div>
-          <label htmlFor="targetWaistIn" className="block text-sm font-medium text-zen-700 mb-2">
+          <label htmlFor="targetWaistIn" className="block text-sm font-medium text-earth-700 mb-2">
             Target Waist Size (inches)
           </label>
           <input
@@ -250,8 +250,8 @@ export default function OnboardingStep4() {
             placeholder={currentWaistCm > 0 ? String(cmToInches(currentWaistCm) - 4) : "30"}
             min="1"
             step="0.1"
-            className={`w-full px-4 py-3 border rounded-zen focus:outline-none focus:ring-2 focus:ring-moss-400/50 focus:border-moss-400 transition-all duration-200 bg-white/60 ${
-              errors.targetWaist ? "border-red-400" : "border-stone-300"
+            className={`w-full px-4 py-3 border rounded-zen focus:outline-none focus:ring-2 focus:ring-sage-400/50 focus:border-sage-400 transition-all duration-200 bg-sand-50 ${
+              errors.targetWaist ? "border-red-400" : "border-sand-300"
             }`}
           />
           {errors.targetWaist && (
@@ -262,16 +262,16 @@ export default function OnboardingStep4() {
 
       {/* Computed Loss Display */}
       {loss && loss.value > 0 && (
-        <div className="bg-moss-50/60 border border-moss-200 rounded-zen p-4">
-          <p className="text-sm text-moss-700">You&apos;ll lose</p>
-          <p className="text-2xl font-bold text-moss-800">{loss.label}</p>
-          <p className="text-xs text-moss-600 mt-1">from your waist</p>
+        <div className="bg-sage-50 border border-sage-200 rounded-zen p-4">
+          <p className="text-sm text-sage-800">You&apos;ll lose</p>
+          <p className="text-2xl font-bold text-sage-900">{loss.label}</p>
+          <p className="text-xs text-sage-700 mt-1">from your waist</p>
         </div>
       )}
 
       {/* Timeline */}
       <div>
-        <label htmlFor="timelineDays" className="block text-sm font-medium text-zen-700 mb-2">
+        <label htmlFor="timelineDays" className="block text-sm font-medium text-earth-700 mb-2">
           Timeline (days)
         </label>
         <input
@@ -285,14 +285,14 @@ export default function OnboardingStep4() {
           }}
           placeholder="90"
           min="30"
-          className={`w-full px-4 py-3 border rounded-zen focus:outline-none focus:ring-2 focus:ring-moss-400/50 focus:border-moss-400 transition-all duration-200 bg-white/60 ${
-            errors.timelineDays ? "border-red-400" : "border-stone-300"
+          className={`w-full px-4 py-3 border rounded-zen focus:outline-none focus:ring-2 focus:ring-sage-400/50 focus:border-sage-400 transition-all duration-200 bg-sand-50 ${
+            errors.timelineDays ? "border-red-400" : "border-sand-300"
           }`}
         />
         {errors.timelineDays && (
           <p className="text-red-600/80 text-sm mt-1">{errors.timelineDays}</p>
         )}
-        <p className="text-zen-500 text-sm mt-2">
+        <p className="text-earth-500 text-sm mt-2">
           This is approximately{" "}
           {timelineDays
             ? (parseInt(timelineDays) / 7).toFixed(1)
@@ -302,17 +302,17 @@ export default function OnboardingStep4() {
       </div>
 
       {/* Navigation */}
-      <div className="flex gap-4 pt-6 border-t border-stone-200">
+      <div className="flex gap-4 pt-6 border-t border-sand-200">
         <button
           type="button"
           onClick={handlePrevious}
-          className="flex-1 bg-stone-100 hover:bg-stone-200 text-zen-800 font-medium py-3 rounded-zen transition-all duration-300"
+          className="flex-1 bg-sand-200 hover:bg-sand-300 text-earth-800 font-medium py-3 rounded-zen transition-all duration-300"
         >
           Previous
         </button>
         <button
           type="submit"
-          className="flex-1 bg-moss-500 hover:bg-moss-600 text-white font-medium py-3 rounded-zen transition-all duration-300 shadow-zen"
+          className="flex-1 bg-sage-800 hover:bg-sage-900 text-white font-medium py-3 rounded-zen transition-all duration-300 shadow-zen"
         >
           Next
         </button>

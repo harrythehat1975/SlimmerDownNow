@@ -2,69 +2,91 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
 
-* {
-  @apply border-stone-200;
-}
+@layer base {
+  * {
+    @apply border-sand-300;
+  }
 
-body {
-  @apply bg-zen-50 text-zen-900 antialiased;
-  font-family: 'Inter', 'Noto Sans', system-ui, sans-serif;
-}
+  body {
+    @apply bg-sand-100 text-earth-900 antialiased;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    line-height: 1.7;
+  }
 
-/* Utility classes */
-.page-container {
-  @apply max-w-6xl mx-auto px-4 sm:px-6 lg:px-8;
-}
-
-.btn-primary {
-  @apply px-4 py-2 bg-moss-500 text-white rounded-zen font-semibold hover:bg-moss-600 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed;
-}
-
-.btn-secondary {
-  @apply px-4 py-2 bg-stone-100 text-zen-800 rounded-zen font-semibold hover:bg-stone-200 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed;
-}
-
-.btn-outline {
-  @apply px-4 py-2 border-2 border-moss-400 text-moss-600 rounded-zen font-semibold hover:bg-moss-50 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed;
-}
-
-.card {
-  @apply bg-white/80 backdrop-blur-sm rounded-zen shadow-zen p-6;
-}
-
-.input-base {
-  @apply w-full px-4 py-2 border border-stone-300 rounded-zen focus:outline-none focus:ring-2 focus:ring-moss-400/50 focus:border-moss-400 transition-all duration-200;
-}
-
-.text-error {
-  @apply text-red-700/80 text-sm;
-}
-
-.text-success {
-  @apply text-moss-600 text-sm;
-}
-
-.text-warning {
-  @apply text-amber-700/80 text-sm;
-}
-
-/* Loading animation */
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
+  h1, h2, h3, h4 {
+    line-height: 1.3;
   }
 }
 
-.spinner {
-  animation: spin 1s linear infinite;
+@layer components {
+  /* ─── Zen Card ─── */
+  .zen-card {
+    @apply bg-white rounded-zen-lg shadow-zen p-6 sm:p-8 border border-sand-200/60;
+    transition: box-shadow 350ms ease, transform 350ms ease;
+  }
+  .zen-card:hover {
+    @apply shadow-zen-md;
+  }
+
+  /* ─── Zen Button (Primary) ─── */
+  .zen-btn {
+    @apply px-6 py-3 bg-sage-900 text-sand-100 rounded-xl font-medium
+           hover:bg-sage-800 transition-all duration-350
+           disabled:opacity-50 disabled:cursor-not-allowed
+           focus:outline-none focus:ring-2 focus:ring-sage-400/40 focus:ring-offset-2 focus:ring-offset-sand-100;
+  }
+
+  /* ─── Zen Button (Secondary) ─── */
+  .zen-btn-secondary {
+    @apply px-6 py-3 bg-sand-200 text-earth-800 rounded-xl font-medium
+           hover:bg-sand-300 transition-all duration-350
+           disabled:opacity-50 disabled:cursor-not-allowed
+           focus:outline-none focus:ring-2 focus:ring-sage-400/30 focus:ring-offset-2 focus:ring-offset-sand-100;
+  }
+
+  /* ─── Zen Button (Ghost) ─── */
+  .zen-btn-ghost {
+    @apply px-6 py-3 text-sage-700 rounded-xl font-medium
+           hover:bg-sage-50 transition-all duration-350
+           disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  /* ─── Zen Input ─── */
+  .zen-input {
+    @apply w-full px-4 py-3 bg-sand-50 border border-sand-300 rounded-xl
+           text-earth-900 placeholder:text-earth-400
+           focus:outline-none focus:ring-2 focus:ring-sage-400/30 focus:border-sage-400
+           transition-all duration-200;
+  }
+
+  /* ─── Zen Slider ─── */
+  .zen-slider {
+    @apply w-full accent-sage-600;
+  }
+
+  /* ─── Zen Label ─── */
+  .zen-label {
+    @apply block text-sm font-medium text-earth-700 mb-1.5;
+  }
+
+  /* ─── Zen Section Header ─── */
+  .zen-section-title {
+    @apply text-lg font-medium text-earth-900 mb-5;
+  }
+
+  /* ─── Page title ─── */
+  .zen-page-title {
+    @apply text-heading text-earth-900;
+  }
+
+  .zen-page-subtitle {
+    @apply text-earth-500 text-sm mt-1 leading-relaxed;
+  }
 }
 
-/* Zen background texture */
+/* ─── Smooth background ─── */
 .zen-bg {
-  background-image: 
-    radial-gradient(ellipse at 20% 50%, rgba(193, 207, 183, 0.15) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 20%, rgba(184, 221, 217, 0.1) 0%, transparent 50%),
-    radial-gradient(ellipse at 50% 80%, rgba(226, 221, 214, 0.2) 0%, transparent 50%);
+  background: linear-gradient(170deg, #FAF9F6 0%, #F5F1E8 40%, #FAF9F6 100%);
 }

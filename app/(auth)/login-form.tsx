@@ -33,7 +33,6 @@ export default function LoginForm() {
         return;
       }
 
-      // Redirect to onboarding or dashboard
       router.push("/onboarding");
     } catch (err) {
       setError("An error occurred. Please try again.");
@@ -43,19 +42,18 @@ export default function LoginForm() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-zen-50 via-stone-50 to-moss-50 flex items-center justify-center p-4">
-      <div className="w-full max-w-md bg-white/80 backdrop-blur-sm rounded-zen shadow-zen-md p-8 border border-stone-100">
+    <div className="min-h-screen zen-bg flex items-center justify-center p-4">
+      <div className="w-full max-w-md zen-card p-8">
         <div className="text-center mb-6">
-          <span className="text-3xl">🌿</span>
-          <h1 className="text-2xl font-light text-zen-900 mt-2">Welcome Back</h1>
-          <p className="text-zen-500 text-sm mt-1">
+          <h1 className="text-2xl font-light text-earth-900 mt-2">Welcome Back</h1>
+          <p className="text-earth-500 text-sm mt-1">
             Continue your mindful journey
           </p>
         </div>
 
         {signupSuccess && (
-          <div className="mb-4 p-3 bg-moss-50 border border-moss-200 rounded-zen text-moss-700 text-sm">
-            ✓ Account created successfully! Please sign in.
+          <div className="mb-4 p-3 bg-sage-50 border border-sage-200 rounded-zen text-sage-800 text-sm">
+            Account created successfully. Please sign in.
           </div>
         )}
 
@@ -67,7 +65,7 @@ export default function LoginForm() {
 
         <form onSubmit={handleLogin} className="space-y-4">
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-zen-700 mb-1">
+            <label htmlFor="email" className="zen-label">
               Email
             </label>
             <input
@@ -78,12 +76,12 @@ export default function LoginForm() {
               placeholder="you@example.com"
               required
               disabled={loading}
-              className="w-full px-4 py-2.5 border border-stone-300 rounded-zen focus:outline-none focus:ring-2 focus:ring-moss-400/50 focus:border-moss-400 transition-all duration-200 bg-white/60 disabled:bg-stone-100"
+              className="zen-input disabled:bg-sand-200"
             />
           </div>
 
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-zen-700 mb-1">
+            <label htmlFor="password" className="zen-label">
               Password
             </label>
             <input
@@ -94,22 +92,22 @@ export default function LoginForm() {
               placeholder="••••••••"
               required
               disabled={loading}
-              className="w-full px-4 py-2.5 border border-stone-300 rounded-zen focus:outline-none focus:ring-2 focus:ring-moss-400/50 focus:border-moss-400 transition-all duration-200 bg-white/60 disabled:bg-stone-100"
+              className="zen-input disabled:bg-sand-200"
             />
           </div>
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-moss-500 hover:bg-moss-600 text-white font-medium py-2.5 rounded-zen transition-all duration-300 disabled:opacity-50 shadow-zen"
+            className="zen-btn w-full disabled:opacity-50"
           >
             {loading ? "Signing in..." : "Sign In"}
           </button>
         </form>
 
-        <p className="text-center text-zen-500 text-sm mt-6">
+        <p className="text-center text-earth-500 text-sm mt-6">
           New to the journey?{" "}
-          <Link href="/signup" className="text-moss-600 hover:text-moss-700 font-medium">
+          <Link href="/signup" className="text-sage-700 hover:text-sage-900 font-medium">
             Create an account
           </Link>
         </p>

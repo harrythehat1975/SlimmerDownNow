@@ -3,71 +3,67 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // Zen Garden palette
-        zen: {
-          50:  "#f6f7f4",   // lightest sand
-          100: "#edeee8",   // warm sand
-          200: "#dddecf",   // dry sand
-          300: "#c4c5aa",   // light bamboo
-          400: "#a3a67e",   // bamboo
-          500: "#7d8060",   // sage
-          600: "#636845",   // moss
-          700: "#4d5137",   // deep moss
-          800: "#3a3d2b",   // stone dark
-          900: "#2a2d1f",   // deepest earth
-          950: "#1a1c14",   // night garden
+        // Zen Garden — natural, muted, grounded
+        sand: {
+          50:  "#FDFCF9",
+          100: "#FAF9F6",  // warm off-white (background)
+          200: "#F5F1E8",  // soft sand (primary surface)
+          300: "#EDE8DA",
+          400: "#E0D8C5",
+          500: "#CFC4A8",
+          600: "#B5A88A",
+          700: "#9A8D72",
+          800: "#7A7059",
+          900: "#5C5443",
         },
-        stone: {
-          50:  "#faf9f7",
-          100: "#f0eeea",
-          200: "#e2ddd6",
-          300: "#cfc7bb",
-          400: "#b5a999",
-          500: "#9a8d7d",
-          600: "#7f7264",
-          700: "#655a4e",
-          800: "#4d4439",
-          900: "#3a332b",
+        sage: {
+          50:  "#F4F7F0",
+          100: "#E8EFE0",
+          200: "#D3E0C5",
+          300: "#B8CCA3",
+          400: "#A3B18A",  // sage green (secondary)
+          500: "#8A9C72",
+          600: "#6B8F71",  // muted olive (secondary accent)
+          700: "#5A7A5E",
+          800: "#47614A",
+          900: "#344E41",  // deep forest green (accent)
         },
-        moss: {
-          50:  "#f2f5f0",
-          100: "#e0e7db",
-          200: "#c1cfb7",
-          300: "#9bb28d",
-          400: "#7a9668",
-          500: "#5e7a4e",
-          600: "#4a623d",
-          700: "#3b4e31",
-          800: "#2e3d27",
-          900: "#243020",
+        earth: {
+          50:  "#F7F6F5",
+          100: "#EEECEB",
+          200: "#E0DCDA",
+          300: "#CCC6C2",
+          400: "#B0A8A2",
+          500: "#948A82",
+          600: "#786E66",
+          700: "#5C544D",
+          800: "#3E3936",
+          900: "#2F2F2F",  // soft charcoal (text)
         },
-        water: {
-          50:  "#f0f7f7",
-          100: "#dceeed",
-          200: "#b8ddd9",
-          300: "#8ac4bf",
-          400: "#5da8a2",
-          500: "#438d87",
-          600: "#36726d",
-          700: "#2d5b57",
-          800: "#264947",
-          900: "#1f3b39",
-        },
-        primary: "#5e7a4e",
-        success: "#4a623d",
-        error: "#9b4d4d",
-        warning: "#b5894a",
       },
       fontFamily: {
-        sans: ['"Inter"', '"Noto Sans"', 'system-ui', 'sans-serif'],
+        sans: ['"Inter"', 'system-ui', '-apple-system', 'sans-serif'],
+      },
+      fontSize: {
+        'display': ['2.5rem', { lineHeight: '1.2', fontWeight: '300' }],
+        'heading': ['1.75rem', { lineHeight: '1.3', fontWeight: '300' }],
+        'subheading': ['1.125rem', { lineHeight: '1.5', fontWeight: '400' }],
       },
       borderRadius: {
-        'zen': '0.75rem',
+        'zen': '1rem',
+        'zen-lg': '1.25rem',
       },
       boxShadow: {
-        'zen': '0 1px 3px rgba(42, 45, 31, 0.08), 0 1px 2px rgba(42, 45, 31, 0.06)',
-        'zen-md': '0 4px 6px rgba(42, 45, 31, 0.07), 0 2px 4px rgba(42, 45, 31, 0.06)',
-        'zen-lg': '0 10px 15px rgba(42, 45, 31, 0.07), 0 4px 6px rgba(42, 45, 31, 0.05)',
+        'zen': '0 1px 3px rgba(47, 47, 47, 0.04), 0 1px 2px rgba(47, 47, 47, 0.03)',
+        'zen-md': '0 4px 12px rgba(47, 47, 47, 0.05), 0 1px 3px rgba(47, 47, 47, 0.03)',
+        'zen-lg': '0 8px 24px rgba(47, 47, 47, 0.06), 0 2px 6px rgba(47, 47, 47, 0.03)',
+      },
+      spacing: {
+        '18': '4.5rem',
+        '22': '5.5rem',
+      },
+      transitionDuration: {
+        '350': '350ms',
       },
     },
   },

@@ -111,10 +111,24 @@ export async function POST(request: NextRequest) {
 
     // Create initial daily plan
     const today = new Date();
-    const dailyPlan = await prisma.dailyPlan.create({
-      data: {
+    today.setHours(0, 0, 0, 0);
+    const dailyPlan = await prisma.dailyPlan.upsert({
+      where: {
+        userId_date: { userId, date: today },
+      },
+      create: {
         userId,
         date: today,
+        calorieTarget: recommendation.calories,
+        proteinTargetG: recommendation.proteinG,
+        carbTargetG: recommendation.carbsG,
+        fatTargetG: recommendation.fatsG,
+        stepGoal: recommendation.stepGoal,
+        hydrationGoalLiters: recommendation.hydrationLiters,
+        coachingTip: "Welcome to your personalized nutrition plan! This has been tailored to your unique metrics and goals.",
+        generatedAt: today,
+      },
+      update: {
         calorieTarget: recommendation.calories,
         proteinTargetG: recommendation.proteinG,
         carbTargetG: recommendation.carbsG,

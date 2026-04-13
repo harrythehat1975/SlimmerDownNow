@@ -211,40 +211,40 @@ export default function OnboardingStep2() {
   return (
     <form onSubmit={handleNext} className="space-y-6">
       <div className="mb-2">
-        <h2 className="text-2xl font-light text-zen-900">Measurements</h2>
-        <p className="text-zen-500 text-sm mt-1">We need a few body measurements to build your plan.</p>
+        <h2 className="text-2xl font-light text-earth-900">Measurements</h2>
+        <p className="text-earth-500 text-sm mt-1">We need a few body measurements to build your plan.</p>
       </div>
 
       {/* Unit Toggle */}
-      <div className="flex rounded-zen overflow-hidden border border-stone-300">
+      <div className="flex rounded-zen overflow-hidden border border-sand-300">
         <button
           type="button"
           onClick={() => handleUnitSwitch("us")}
           className={`flex-1 py-2.5 text-sm font-medium transition-all duration-200 ${
             unit === "us"
-              ? "bg-moss-500 text-white"
-              : "bg-white/60 text-zen-600 hover:bg-stone-50"
+              ? "bg-sage-800 text-white"
+              : "bg-sand-50 text-earth-600 hover:bg-sand-100"
           }`}
         >
-          🇺🇸 US (ft, lbs, in)
+          US (ft, lbs, in)
         </button>
         <button
           type="button"
           onClick={() => handleUnitSwitch("metric")}
           className={`flex-1 py-2.5 text-sm font-medium transition-all duration-200 ${
             unit === "metric"
-              ? "bg-moss-500 text-white"
-              : "bg-white/60 text-zen-600 hover:bg-stone-50"
+              ? "bg-sage-800 text-white"
+              : "bg-sand-50 text-earth-600 hover:bg-sand-100"
           }`}
         >
-          🌍 Metric (cm, kg)
+          Metric (cm, kg)
         </button>
       </div>
 
       {/* Height */}
       {unit === "metric" ? (
         <div>
-          <label htmlFor="heightCm" className="block text-sm font-medium text-zen-700 mb-2">
+          <label htmlFor="heightCm" className="block text-sm font-medium text-earth-700 mb-2">
             Height (cm)
           </label>
           <input
@@ -257,8 +257,8 @@ export default function OnboardingStep2() {
             min="100"
             max="250"
             step="0.1"
-            className={`w-full px-4 py-3 border rounded-zen focus:outline-none focus:ring-2 focus:ring-moss-400/50 focus:border-moss-400 transition-all duration-200 bg-white/60 ${
-              errors.heightCm ? "border-red-400" : "border-stone-300"
+            className={`w-full px-4 py-3 border rounded-zen focus:outline-none focus:ring-2 focus:ring-sage-400/50 focus:border-sage-400 transition-all duration-200 bg-sand-50 ${
+              errors.heightCm ? "border-red-400" : "border-sand-300"
             }`}
           />
           {errors.heightCm && (
@@ -267,7 +267,7 @@ export default function OnboardingStep2() {
         </div>
       ) : (
         <div>
-          <label className="block text-sm font-medium text-zen-700 mb-2">
+          <label className="block text-sm font-medium text-earth-700 mb-2">
             Height
           </label>
           <div className="flex gap-3">
@@ -283,11 +283,11 @@ export default function OnboardingStep2() {
                   placeholder="5"
                   min="3"
                   max="8"
-                  className={`w-full px-4 py-3 border rounded-zen focus:outline-none focus:ring-2 focus:ring-moss-400/50 focus:border-moss-400 transition-all duration-200 bg-white/60 pr-10 ${
-                    errors.heightFeet ? "border-red-400" : "border-stone-300"
+                  className={`w-full px-4 py-3 border rounded-zen focus:outline-none focus:ring-2 focus:ring-sage-400/50 focus:border-sage-400 transition-all duration-200 bg-sand-50 pr-10 ${
+                    errors.heightFeet ? "border-red-400" : "border-sand-300"
                   }`}
                 />
-                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-zen-400 text-sm">ft</span>
+                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-earth-400 text-sm">ft</span>
               </div>
             </div>
             <div className="flex-1">
@@ -302,11 +302,11 @@ export default function OnboardingStep2() {
                   placeholder="8"
                   min="0"
                   max="11"
-                  className={`w-full px-4 py-3 border rounded-zen focus:outline-none focus:ring-2 focus:ring-moss-400/50 focus:border-moss-400 transition-all duration-200 bg-white/60 pr-10 ${
-                    errors.heightInches ? "border-red-400" : "border-stone-300"
+                  className={`w-full px-4 py-3 border rounded-zen focus:outline-none focus:ring-2 focus:ring-sage-400/50 focus:border-sage-400 transition-all duration-200 bg-sand-50 pr-10 ${
+                    errors.heightInches ? "border-red-400" : "border-sand-300"
                   }`}
                 />
-                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-zen-400 text-sm">in</span>
+                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-earth-400 text-sm">in</span>
               </div>
             </div>
           </div>
@@ -319,7 +319,7 @@ export default function OnboardingStep2() {
       {/* Weight */}
       {unit === "metric" ? (
         <div>
-          <label htmlFor="weightKg" className="block text-sm font-medium text-zen-700 mb-2">
+          <label htmlFor="weightKg" className="block text-sm font-medium text-earth-700 mb-2">
             Weight (kg)
           </label>
           <input
@@ -332,8 +332,8 @@ export default function OnboardingStep2() {
             min="20"
             max="300"
             step="0.1"
-            className={`w-full px-4 py-3 border rounded-zen focus:outline-none focus:ring-2 focus:ring-moss-400/50 focus:border-moss-400 transition-all duration-200 bg-white/60 ${
-              errors.weightKg ? "border-red-400" : "border-stone-300"
+            className={`w-full px-4 py-3 border rounded-zen focus:outline-none focus:ring-2 focus:ring-sage-400/50 focus:border-sage-400 transition-all duration-200 bg-sand-50 ${
+              errors.weightKg ? "border-red-400" : "border-sand-300"
             }`}
           />
           {errors.weightKg && (
@@ -342,7 +342,7 @@ export default function OnboardingStep2() {
         </div>
       ) : (
         <div>
-          <label htmlFor="weightLbs" className="block text-sm font-medium text-zen-700 mb-2">
+          <label htmlFor="weightLbs" className="block text-sm font-medium text-earth-700 mb-2">
             Weight (lbs)
           </label>
           <input
@@ -357,8 +357,8 @@ export default function OnboardingStep2() {
             min="44"
             max="660"
             step="0.1"
-            className={`w-full px-4 py-3 border rounded-zen focus:outline-none focus:ring-2 focus:ring-moss-400/50 focus:border-moss-400 transition-all duration-200 bg-white/60 ${
-              errors.weightLbs ? "border-red-400" : "border-stone-300"
+            className={`w-full px-4 py-3 border rounded-zen focus:outline-none focus:ring-2 focus:ring-sage-400/50 focus:border-sage-400 transition-all duration-200 bg-sand-50 ${
+              errors.weightLbs ? "border-red-400" : "border-sand-300"
             }`}
           />
           {errors.weightLbs && (
@@ -370,7 +370,7 @@ export default function OnboardingStep2() {
       {/* Waist Circumference */}
       {unit === "metric" ? (
         <div>
-          <label htmlFor="waistCm" className="block text-sm font-medium text-zen-700 mb-2">
+          <label htmlFor="waistCm" className="block text-sm font-medium text-earth-700 mb-2">
             Waist Circumference (cm)
           </label>
           <input
@@ -382,8 +382,8 @@ export default function OnboardingStep2() {
             placeholder="85"
             min="40"
             step="0.1"
-            className={`w-full px-4 py-3 border rounded-zen focus:outline-none focus:ring-2 focus:ring-moss-400/50 focus:border-moss-400 transition-all duration-200 bg-white/60 ${
-              errors.waistCm ? "border-red-400" : "border-stone-300"
+            className={`w-full px-4 py-3 border rounded-zen focus:outline-none focus:ring-2 focus:ring-sage-400/50 focus:border-sage-400 transition-all duration-200 bg-sand-50 ${
+              errors.waistCm ? "border-red-400" : "border-sand-300"
             }`}
           />
           {errors.waistCm && (
@@ -392,7 +392,7 @@ export default function OnboardingStep2() {
         </div>
       ) : (
         <div>
-          <label htmlFor="waistIn" className="block text-sm font-medium text-zen-700 mb-2">
+          <label htmlFor="waistIn" className="block text-sm font-medium text-earth-700 mb-2">
             Waist Circumference (inches)
           </label>
           <input
@@ -406,8 +406,8 @@ export default function OnboardingStep2() {
             placeholder="33"
             min="16"
             step="0.1"
-            className={`w-full px-4 py-3 border rounded-zen focus:outline-none focus:ring-2 focus:ring-moss-400/50 focus:border-moss-400 transition-all duration-200 bg-white/60 ${
-              errors.waistIn ? "border-red-400" : "border-stone-300"
+            className={`w-full px-4 py-3 border rounded-zen focus:outline-none focus:ring-2 focus:ring-sage-400/50 focus:border-sage-400 transition-all duration-200 bg-sand-50 ${
+              errors.waistIn ? "border-red-400" : "border-sand-300"
             }`}
           />
           {errors.waistIn && (
@@ -418,7 +418,7 @@ export default function OnboardingStep2() {
 
       {/* Age */}
       <div>
-        <label htmlFor="ageYears" className="block text-sm font-medium text-zen-700 mb-2">
+        <label htmlFor="ageYears" className="block text-sm font-medium text-earth-700 mb-2">
           Age (years)
         </label>
         <input
@@ -430,8 +430,8 @@ export default function OnboardingStep2() {
           placeholder="35"
           min="18"
           max="120"
-          className={`w-full px-4 py-3 border rounded-zen focus:outline-none focus:ring-2 focus:ring-moss-400/50 focus:border-moss-400 transition-all duration-200 bg-white/60 ${
-            errors.ageYears ? "border-red-400" : "border-stone-300"
+          className={`w-full px-4 py-3 border rounded-zen focus:outline-none focus:ring-2 focus:ring-sage-400/50 focus:border-sage-400 transition-all duration-200 bg-sand-50 ${
+            errors.ageYears ? "border-red-400" : "border-sand-300"
           }`}
         />
         {errors.ageYears && (
@@ -440,17 +440,17 @@ export default function OnboardingStep2() {
       </div>
 
       {/* Navigation */}
-      <div className="flex gap-4 pt-6 border-t border-stone-200">
+      <div className="flex gap-4 pt-6 border-t border-sand-200">
         <button
           type="button"
           onClick={handlePrevious}
-          className="flex-1 bg-stone-100 hover:bg-stone-200 text-zen-800 font-medium py-3 rounded-zen transition-all duration-300"
+          className="flex-1 bg-sand-200 hover:bg-sand-300 text-earth-800 font-medium py-3 rounded-zen transition-all duration-300"
         >
           Previous
         </button>
         <button
           type="submit"
-          className="flex-1 bg-moss-500 hover:bg-moss-600 text-white font-medium py-3 rounded-zen transition-all duration-300 shadow-zen"
+          className="flex-1 bg-sage-800 hover:bg-sage-900 text-white font-medium py-3 rounded-zen transition-all duration-300 shadow-zen"
         >
           Next
         </button>

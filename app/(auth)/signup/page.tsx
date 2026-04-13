@@ -21,7 +21,6 @@ export default function SignupPage() {
     setLoading(true);
 
     try {
-      // Client-side validation
       if (password !== confirmPassword) {
         setError("Passwords do not match");
         setLoading(false);
@@ -37,7 +36,6 @@ export default function SignupPage() {
         return;
       }
 
-      // Call signup API
       const response = await fetch("/api/auth/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -52,7 +50,6 @@ export default function SignupPage() {
         return;
       }
 
-      // Redirect to login
       router.push("/login?signup=success");
     } catch (err) {
       setError("An error occurred. Please try again.");
@@ -62,12 +59,11 @@ export default function SignupPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-zen-50 via-stone-50 to-moss-50 flex items-center justify-center p-4">
-      <div className="w-full max-w-md bg-white/80 backdrop-blur-sm rounded-zen shadow-zen-md p-8 border border-stone-100">
+    <div className="min-h-screen zen-bg flex items-center justify-center p-4">
+      <div className="w-full max-w-md zen-card p-8">
         <div className="text-center mb-6">
-          <span className="text-3xl">🌿</span>
-          <h1 className="text-2xl font-light text-zen-900 mt-2">Create Your Account</h1>
-          <p className="text-zen-500 text-sm mt-1">
+          <h1 className="text-2xl font-light text-earth-900 mt-2">Create Your Account</h1>
+          <p className="text-earth-500 text-sm mt-1">
             Begin your mindful waist loss journey
           </p>
         </div>
@@ -80,7 +76,7 @@ export default function SignupPage() {
 
         <form onSubmit={handleSignup} className="space-y-4">
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-zen-700 mb-1">
+            <label htmlFor="email" className="zen-label">
               Email
             </label>
             <input
@@ -89,14 +85,14 @@ export default function SignupPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="you@example.com"
-              className="w-full px-4 py-2.5 border border-stone-300 rounded-zen focus:ring-2 focus:ring-moss-400/50 focus:border-moss-400 transition-all duration-200 bg-white/60"
+              className="zen-input"
               required
               disabled={loading}
             />
           </div>
 
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-zen-700 mb-1">
+            <label htmlFor="password" className="zen-label">
               Password
             </label>
             <input
@@ -105,14 +101,14 @@ export default function SignupPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="At least 8 characters"
-              className="w-full px-4 py-2.5 border border-stone-300 rounded-zen focus:ring-2 focus:ring-moss-400/50 focus:border-moss-400 transition-all duration-200 bg-white/60"
+              className="zen-input"
               required
               disabled={loading}
             />
           </div>
 
           <div>
-            <label htmlFor="confirmPassword" className="block text-sm font-medium text-zen-700 mb-1">
+            <label htmlFor="confirmPassword" className="zen-label">
               Confirm Password
             </label>
             <input
@@ -121,7 +117,7 @@ export default function SignupPage() {
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               placeholder="Confirm your password"
-              className="w-full px-4 py-2.5 border border-stone-300 rounded-zen focus:ring-2 focus:ring-moss-400/50 focus:border-moss-400 transition-all duration-200 bg-white/60"
+              className="zen-input"
               required
               disabled={loading}
             />
@@ -130,15 +126,15 @@ export default function SignupPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full px-4 py-2.5 bg-moss-500 text-white rounded-zen font-medium hover:bg-moss-600 transition-all duration-300 disabled:opacity-50 shadow-zen"
+            className="zen-btn w-full disabled:opacity-50"
           >
             {loading ? "Creating account..." : "Begin Journey"}
           </button>
         </form>
 
-        <p className="text-center text-sm text-zen-500 mt-6">
+        <p className="text-center text-sm text-earth-500 mt-6">
           Already on the path?{" "}
-          <Link href="/login" className="text-moss-600 hover:text-moss-700 font-medium">
+          <Link href="/login" className="text-sage-700 hover:text-sage-900 font-medium">
             Sign in
           </Link>
         </p>

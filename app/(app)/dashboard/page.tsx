@@ -4,6 +4,7 @@ export const dynamic = "force-dynamic";
 
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 interface DailyPlan {
   id: string;
@@ -36,6 +37,7 @@ interface CoachMessage {
 }
 
 export default function DashboardPage() {
+  const router = useRouter();
   const { data: session } = useSession();
   const [dailyPlan, setDailyPlan] = useState<DailyPlan | null>(null);
   const [userMetrics, setUserMetrics] = useState<UserMetrics | null>(null);
@@ -297,7 +299,10 @@ export default function DashboardPage() {
 
       {/* Check-In Button */}
       <div className="flex gap-4">
-        <button className="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 rounded-lg transition">
+        <button
+          onClick={() => router.push("/checkin")}
+          className="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 rounded-lg transition"
+        >
           Log Daily Check-In
         </button>
         <button className="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-900 font-semibold py-3 rounded-lg transition">

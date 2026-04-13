@@ -16,3 +16,4 @@ coverage/
 
 # Prisma
 prisma/.env
+.env.local.save

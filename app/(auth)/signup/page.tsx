@@ -28,7 +28,7 @@ export default function SignupPage() {
         return;
       }
 
-      const validation = signupSchema.safeParse({ email, password });
+      const validation = signupSchema.safeParse({ email, password, confirmPassword });
       if (!validation.success) {
         const errorMessage =
           validation.error.errors[0]?.message || "Invalid input";
@@ -41,7 +41,7 @@ export default function SignupPage() {
       const response = await fetch("/api/auth/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email, password, confirmPassword }),
       });
 
       const data = await response.json();

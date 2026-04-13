@@ -69,6 +69,12 @@ export default function AppLayout({
                 Coach
               </Link>
               <Link
+                href="/checkin"
+                className="text-gray-700 hover:text-indigo-600 font-medium transition"
+              >
+                Check-In
+              </Link>
+              <Link
                 href="/settings"
                 className="text-gray-700 hover:text-indigo-600 font-medium transition"
               >

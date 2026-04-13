@@ -1,13 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/options";
-import {
-  buildCoachContext,
-  buildChatPrompt,
-  callAi,
-  aiChatResponseSchema,
-} from "@/lib/services/aiCoach";
-import type { AiChatResponse } from "@/lib/services/aiCoach";
 import { z } from "zod";
 
 export const dynamic = "force-dynamic";
@@ -25,6 +18,15 @@ const requestSchema = z.object({
 
 export async function POST(request: NextRequest) {
   try {
+    // Lazy-import AI modules to avoid build-time evaluation
+    const {
+      buildCoachContext,
+      buildChatPrompt,
+      callAi,
+      aiChatResponseSchema,
+    } = await import("@/lib/services/aiCoach");
+    type AiChatResponse = import("@/lib/services/aiCoach").AiChatResponse;
+
     // 1. Auth check
     const session = await getServerSession(authOptions);
     const userId = (session?.user as any)?.id;

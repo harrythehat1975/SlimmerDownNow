@@ -1,16 +1,6 @@
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/options";
-import {
-  buildCoachContext,
-  buildDailyCoachPrompt,
-  callAi,
-  aiCoachResponseSchema,
-  sanitizeCoachMessage,
-  getCachedDailyCoach,
-  cacheDailyCoach,
-} from "@/lib/services/aiCoach";
-import type { AiCoachResponse } from "@/lib/services/aiCoach";
 
 export const dynamic = "force-dynamic";
 
@@ -23,6 +13,18 @@ export const dynamic = "force-dynamic";
 
 export async function POST() {
   try {
+    // Lazy-import AI modules to avoid build-time evaluation
+    const {
+      buildCoachContext,
+      buildDailyCoachPrompt,
+      callAi,
+      aiCoachResponseSchema,
+      sanitizeCoachMessage,
+      getCachedDailyCoach,
+      cacheDailyCoach,
+    } = await import("@/lib/services/aiCoach");
+    type AiCoachResponse = import("@/lib/services/aiCoach").AiCoachResponse;
+
     // 1. Auth check
     const session = await getServerSession(authOptions);
     const userId = (session?.user as any)?.id;
@@ -63,7 +65,7 @@ export async function POST() {
     console.error("[daily-coach] Error:", error);
 
     // Graceful degradation — return static fallback if AI fails
-    const fallback: AiCoachResponse = {
+    const fallback = {
       coach_message:
         "Great to see you today! Keep focusing on consistency — small daily habits lead to lasting results.",
       plan_explanation:

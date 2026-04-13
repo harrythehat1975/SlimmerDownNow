@@ -1,14 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/options";
-import {
-  buildCoachContext,
-  buildAdjustmentPrompt,
-  callAi,
-  aiAdjustmentResponseSchema,
-  enforceAdjustmentBounds,
-} from "@/lib/services/aiCoach";
-import type { AiAdjustmentResponse } from "@/lib/services/aiCoach";
 import { z } from "zod";
 
 export const dynamic = "force-dynamic";
@@ -26,6 +18,16 @@ const requestSchema = z.object({
 
 export async function POST(request: NextRequest) {
   try {
+    // Lazy-import AI modules to avoid build-time evaluation
+    const {
+      buildCoachContext,
+      buildAdjustmentPrompt,
+      callAi,
+      aiAdjustmentResponseSchema,
+      enforceAdjustmentBounds,
+    } = await import("@/lib/services/aiCoach");
+    type AiAdjustmentResponse = import("@/lib/services/aiCoach").AiAdjustmentResponse;
+
     // 1. Auth check
     const session = await getServerSession(authOptions);
     const userId = (session?.user as any)?.id;
@@ -55,13 +57,13 @@ export async function POST(request: NextRequest) {
       schema: aiAdjustmentResponseSchema,
       userState: context.userState,
       maxRetries: 2,
-      temperature: 0.5, // Lower temp for numeric outputs
+      temperature: 0.5,
       maxTokens: 512,
     });
 
     // 6. Enforce safety bounds (deterministic post-processing)
     const tdeeEstimate = context.todayPlan
-      ? context.todayPlan.calorieTarget + 400 // Rough reverse-estimate
+      ? context.todayPlan.calorieTarget + 400
       : undefined;
     const safe = enforceAdjustmentBounds(response, tdeeEstimate);
 

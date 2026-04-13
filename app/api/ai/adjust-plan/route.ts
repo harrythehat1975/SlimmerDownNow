@@ -11,6 +11,8 @@ import {
 import type { AiAdjustmentResponse } from "@/lib/services/aiCoach";
 import { z } from "zod";
 
+export const dynamic = "force-dynamic";
+
 // ============================================================================
 // POST /api/ai/adjust-plan
 //

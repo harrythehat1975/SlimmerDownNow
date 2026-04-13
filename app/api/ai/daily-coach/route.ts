@@ -12,6 +12,8 @@ import {
 } from "@/lib/services/aiCoach";
 import type { AiCoachResponse } from "@/lib/services/aiCoach";
 
+export const dynamic = "force-dynamic";
+
 // ============================================================================
 // POST /api/ai/daily-coach
 //

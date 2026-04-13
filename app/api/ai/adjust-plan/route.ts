@@ -1,6 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/options";
 import { z } from "zod";
 
 export const dynamic = "force-dynamic";
@@ -18,7 +16,9 @@ const requestSchema = z.object({
 
 export async function POST(request: NextRequest) {
   try {
-    // Lazy-import AI modules to avoid build-time evaluation
+    // Lazy-import all server modules to avoid build-time evaluation
+    const { getServerSession } = await import("next-auth");
+    const { authOptions } = await import("@/app/api/auth/[...nextauth]/options");
     const {
       buildCoachContext,
       buildAdjustmentPrompt,

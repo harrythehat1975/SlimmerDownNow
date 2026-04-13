@@ -1,6 +1,4 @@
 import { NextResponse } from "next/server";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/options";
 
 export const dynamic = "force-dynamic";
 
@@ -13,7 +11,9 @@ export const dynamic = "force-dynamic";
 
 export async function POST() {
   try {
-    // Lazy-import AI modules to avoid build-time evaluation
+    // Lazy-import all server modules to avoid build-time evaluation
+    const { getServerSession } = await import("next-auth");
+    const { authOptions } = await import("@/app/api/auth/[...nextauth]/options");
     const {
       buildCoachContext,
       buildDailyCoachPrompt,

@@ -1,6 +1,7 @@
 import OpenAI from "openai";
 import { z } from "zod";
-import { SYSTEM_PROMPT } from "./promptBuilder";
+import { SYSTEM_PROMPT, buildSystemPrompt } from "./promptBuilder";
+import type { UserState } from "./schemas";
 
 // ============================================================================
 // AI Client — wraps OpenAI SDK with retry, validation, and cost control.
@@ -27,6 +28,8 @@ interface AiCallOptions {
   userPrompt: string;
   /** Zod schema to validate the response */
   schema: z.ZodSchema;
+  /** User state for dynamic system prompt — if omitted, uses default */
+  userState?: UserState;
   /** Max retries on parse/validation failure */
   maxRetries?: number;
   /** Model to use */
@@ -46,6 +49,7 @@ export async function callAi<T>(options: AiCallOptions): Promise<T> {
   const {
     userPrompt,
     schema,
+    userState,
     maxRetries = 2,
     model = "gpt-4o-mini",
     maxTokens = 1024,
@@ -53,6 +57,7 @@ export async function callAi<T>(options: AiCallOptions): Promise<T> {
   } = options;
 
   const client = getClient();
+  const systemPrompt = userState ? buildSystemPrompt(userState) : SYSTEM_PROMPT;
   let lastError: Error | null = null;
 
   for (let attempt = 0; attempt <= maxRetries; attempt++) {
@@ -60,7 +65,7 @@ export async function callAi<T>(options: AiCallOptions): Promise<T> {
       const completion = await client.chat.completions.create({
         model,
         messages: [
-          { role: "system", content: SYSTEM_PROMPT },
+          { role: "system", content: systemPrompt },
           { role: "user", content: userPrompt },
         ],
         max_tokens: maxTokens,

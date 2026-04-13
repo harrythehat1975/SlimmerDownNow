@@ -44,6 +44,7 @@ export async function POST() {
     const response = await callAi<AiCoachResponse>({
       userPrompt: prompt,
       schema: aiCoachResponseSchema,
+      userState: context.userState,
       maxRetries: 2,
       temperature: 0.7,
       maxTokens: 1024,

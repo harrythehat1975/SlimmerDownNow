@@ -50,6 +50,7 @@ export async function POST(request: NextRequest) {
     const response = await callAi<AiChatResponse>({
       userPrompt: prompt,
       schema: aiChatResponseSchema,
+      userState: context.userState,
       maxRetries: 1,
       temperature: 0.8,
       maxTokens: 512,

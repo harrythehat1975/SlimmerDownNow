@@ -17,6 +17,7 @@ export {
   buildDailyCoachPrompt,
   buildChatPrompt,
   buildAdjustmentPrompt,
+  buildSystemPrompt,
   SYSTEM_PROMPT,
 } from "./promptBuilder";
 export {

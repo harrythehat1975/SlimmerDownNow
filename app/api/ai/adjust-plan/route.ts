@@ -51,6 +51,7 @@ export async function POST(request: NextRequest) {
     const response = await callAi<AiAdjustmentResponse>({
       userPrompt: prompt,
       schema: aiAdjustmentResponseSchema,
+      userState: context.userState,
       maxRetries: 2,
       temperature: 0.5, // Lower temp for numeric outputs
       maxTokens: 512,

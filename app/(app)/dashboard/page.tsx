@@ -25,10 +25,22 @@ interface UserMetrics {
   weight?: number;
 }
 
+interface CoachMessage {
+  coach_message: string;
+  plan_explanation: string;
+  adjustments: string;
+  tips: string[];
+  warnings: string[];
+  cached: boolean;
+  fallback?: boolean;
+}
+
 export default function DashboardPage() {
   const { data: session } = useSession();
   const [dailyPlan, setDailyPlan] = useState<DailyPlan | null>(null);
   const [userMetrics, setUserMetrics] = useState<UserMetrics | null>(null);
+  const [coachData, setCoachData] = useState<CoachMessage | null>(null);
+  const [coachLoading, setCoachLoading] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -47,6 +59,20 @@ export default function DashboardPage() {
         if (profileRes.ok) {
           const profile = await profileRes.json();
           setUserMetrics(profile);
+        }
+
+        // Fetch AI coach message
+        setCoachLoading(true);
+        try {
+          const coachRes = await fetch("/api/ai/daily-coach", { method: "POST" });
+          if (coachRes.ok) {
+            const coach = await coachRes.json();
+            setCoachData(coach);
+          }
+        } catch {
+          // AI coaching is optional — don't block dashboard
+        } finally {
+          setCoachLoading(false);
         }
       } catch (err) {
         setError(
@@ -215,15 +241,59 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      {/* Coaching Tip */}
-      {dailyPlan?.coachingTip && (
+      {/* AI Coach Message */}
+      {coachLoading ? (
+        <div className="bg-indigo-50 border-l-4 border-indigo-600 rounded-lg p-6 animate-pulse">
+          <div className="h-5 bg-indigo-200 rounded w-48 mb-3"></div>
+          <div className="h-4 bg-indigo-100 rounded w-full mb-2"></div>
+          <div className="h-4 bg-indigo-100 rounded w-3/4"></div>
+        </div>
+      ) : coachData ? (
+        <div className="bg-indigo-50 border-l-4 border-indigo-600 rounded-lg p-6">
+          <h3 className="text-lg font-semibold text-indigo-900 mb-2">
+            🤖 Your Coach&apos;s Message Today
+          </h3>
+          <p className="text-indigo-800 mb-4">{coachData.coach_message}</p>
+
+          {/* Plan Explanation */}
+          <details className="mb-3">
+            <summary className="cursor-pointer text-sm font-medium text-indigo-700 hover:text-indigo-900 transition">
+              💡 Why this plan?
+            </summary>
+            <p className="mt-2 text-sm text-indigo-700 pl-4 border-l-2 border-indigo-300">
+              {coachData.plan_explanation}
+            </p>
+          </details>
+
+          {/* Tips */}
+          {coachData.tips.length > 0 && (
+            <div className="mt-3">
+              <p className="text-sm font-medium text-indigo-800 mb-1">Today&apos;s tips:</p>
+              <ul className="list-disc list-inside text-sm text-indigo-700 space-y-1">
+                {coachData.tips.map((tip, i) => (
+                  <li key={i}>{tip}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {/* Warnings */}
+          {coachData.warnings.length > 0 && (
+            <div className="mt-3 bg-amber-50 border border-amber-200 rounded p-3">
+              {coachData.warnings.map((w, i) => (
+                <p key={i} className="text-sm text-amber-800">⚠️ {w}</p>
+              ))}
+            </div>
+          )}
+        </div>
+      ) : dailyPlan?.coachingTip ? (
         <div className="bg-blue-50 border-l-4 border-blue-600 rounded-lg p-6">
           <h3 className="text-lg font-semibold text-blue-900 mb-2">
             💡 Today&apos;s Tip
           </h3>
           <p className="text-blue-800">{dailyPlan.coachingTip}</p>
         </div>
-      )}
+      ) : null}
 
       {/* Check-In Button */}
       <div className="flex gap-4">

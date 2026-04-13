@@ -63,6 +63,12 @@ export default function AppLayout({
                 Dashboard
               </Link>
               <Link
+                href="/coach"
+                className="text-gray-700 hover:text-indigo-600 font-medium transition"
+              >
+                Coach
+              </Link>
+              <Link
                 href="/settings"
                 className="text-gray-700 hover:text-indigo-600 font-medium transition"
               >

@@ -28,6 +28,9 @@ const envSchema = z.object({
   // Sentry
   SENTRY_DSN: z.string().url().optional(),
 
+  // OpenAI (AI Coaching layer)
+  OPENAI_API_KEY: z.string().startsWith("sk-").optional(),
+
   // Admin
   ADMIN_EMAIL: z.string().email().optional(),
   ADMIN_PASSWORD: z.string().min(8).optional(),

@@ -4,6 +4,8 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/options";
 import { prisma } from "@/lib/db/client";
 import { z } from "zod";
 
+export const dynamic = "force-dynamic";
+
 // ============================================================================
 // POST /api/users/checkin — Save a daily check-in
 // GET  /api/users/checkin — Get today's check-in (if exists)

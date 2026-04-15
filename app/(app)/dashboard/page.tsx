@@ -57,6 +57,9 @@ export default function DashboardPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [unitSystem, setUnitSystem] = useState<'metric' | 'us'>("metric");
+  const [nutritionLog, setNutritionLog] = useState({ proteinG: 0, carbG: 0, fatG: 0 });
+  const [nutritionLoading, setNutritionLoading] = useState(true);
+  const [nutritionError, setNutritionError] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -94,10 +97,59 @@ export default function DashboardPage() {
       }
     };
 
+    const fetchNutrition = async () => {
+      setNutritionLoading(true);
+      try {
+        const res = await fetch("/api/nutrition-log");
+        if (res.ok) {
+          const log = await res.json();
+          setNutritionLog(log);
+        }
+      } catch (e) {
+        setNutritionError("Failed to load nutrition log");
+      } finally {
+        setNutritionLoading(false);
+      }
+    };
+
     if (session) {
       fetchData();
+      fetchNutrition();
     }
   }, [session]);
+
+  // Nutrition log form state
+  const [form, setForm] = useState({ proteinG: 0, carbG: 0, fatG: 0 });
+  useEffect(() => {
+    setForm(nutritionLog);
+  }, [nutritionLog]);
+
+  const handleNutritionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setForm({ ...form, [e.target.name]: Number(e.target.value) });
+  };
+
+  const handleNutritionSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setNutritionLoading(true);
+    setNutritionError("");
+    try {
+      const res = await fetch("/api/nutrition-log", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      if (res.ok) {
+        const log = await res.json();
+        setNutritionLog(log);
+      } else {
+        setNutritionError("Failed to save nutrition log");
+      }
+    } catch {
+      setNutritionError("Failed to save nutrition log");
+    } finally {
+      setNutritionLoading(false);
+    }
+  };
 
   // Helper to format measurements in coach message
   function formatCoachMessage(msg: string) {
@@ -147,6 +199,54 @@ export default function DashboardPage() {
 
   return (
     <div className="grid gap-8">
+      {/* Nutrition Log Form */}
+      <div className="zen-card">
+        <h2 className="zen-section-title">Log Your Macros</h2>
+        <form className="flex flex-col md:flex-row gap-4 items-end" onSubmit={handleNutritionSubmit}>
+          <div>
+            <label className="block text-sm font-medium text-earth-700">Protein (g)</label>
+            <input
+              type="number"
+              name="proteinG"
+              min={0}
+              value={form.proteinG}
+              onChange={handleNutritionChange}
+              className="zen-input w-24"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-earth-700">Carbs (g)</label>
+            <input
+              type="number"
+              name="carbG"
+              min={0}
+              value={form.carbG}
+              onChange={handleNutritionChange}
+              className="zen-input w-24"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-earth-700">Fats (g)</label>
+            <input
+              type="number"
+              name="fatG"
+              min={0}
+              value={form.fatG}
+              onChange={handleNutritionChange}
+              className="zen-input w-24"
+            />
+          </div>
+          <button
+            type="submit"
+            className="zen-btn px-6"
+            disabled={nutritionLoading}
+          >
+            {nutritionLoading ? "Saving..." : "Save"}
+          </button>
+        </form>
+        {nutritionError && <p className="text-red-600 mt-2">{nutritionError}</p>}
+      </div>
+
       {/* Unit Toggle */}
       <div className="flex justify-end">
         <div className="inline-flex rounded-md shadow-sm" role="group">
@@ -230,18 +330,14 @@ export default function DashboardPage() {
             <div className="flex justify-between mb-2">
               <span className="text-earth-500 font-medium text-sm">Protein</span>
               <span className="text-earth-900 font-medium text-sm">
-                {dailyPlan?.proteinTargetG || 0}g
+                {nutritionLog.proteinG}g / {dailyPlan?.proteinTargetG || 0}g
               </span>
             </div>
             <div className="w-full bg-sand-200 rounded-full h-2">
               <div
                 className="bg-sage-600 h-2 rounded-full transition-all duration-500"
                 style={{
-                  width: `${
-                    ((dailyPlan?.proteinTargetG || 0) /
-                      (dailyPlan?.calorieTarget || 2000)) *
-                    100
-                  }%`,
+                  width: `${Math.min(100, ((nutritionLog.proteinG || 0) / (dailyPlan?.proteinTargetG || 1)) * 100)}%`,
                 }}
               ></div>
             </div>
@@ -251,18 +347,14 @@ export default function DashboardPage() {
             <div className="flex justify-between mb-2">
               <span className="text-earth-500 font-medium text-sm">Carbs</span>
               <span className="text-earth-900 font-medium text-sm">
-                {dailyPlan?.carbTargetG || 0}g
+                {nutritionLog.carbG}g / {dailyPlan?.carbTargetG || 0}g
               </span>
             </div>
             <div className="w-full bg-sand-200 rounded-full h-2">
               <div
                 className="bg-sage-400 h-2 rounded-full transition-all duration-500"
                 style={{
-                  width: `${
-                    ((dailyPlan?.carbTargetG || 0) /
-                      (dailyPlan?.calorieTarget || 2000)) *
-                    100
-                  }%`,
+                  width: `${Math.min(100, ((nutritionLog.carbG || 0) / (dailyPlan?.carbTargetG || 1)) * 100)}%`,
                 }}
               ></div>
             </div>
@@ -272,18 +364,14 @@ export default function DashboardPage() {
             <div className="flex justify-between mb-2">
               <span className="text-earth-500 font-medium text-sm">Fats</span>
               <span className="text-earth-900 font-medium text-sm">
-                {dailyPlan?.fatTargetG || 0}g
+                {nutritionLog.fatG}g / {dailyPlan?.fatTargetG || 0}g
               </span>
             </div>
             <div className="w-full bg-sand-200 rounded-full h-2">
               <div
                 className="bg-earth-400 h-2 rounded-full transition-all duration-500"
                 style={{
-                  width: `${
-                    ((dailyPlan?.fatTargetG || 0) /
-                      (dailyPlan?.calorieTarget || 2000)) *
-                    100
-                  }%`,
+                  width: `${Math.min(100, ((nutritionLog.fatG || 0) / (dailyPlan?.fatTargetG || 1)) * 100)}%`,
                 }}
               ></div>
             </div>

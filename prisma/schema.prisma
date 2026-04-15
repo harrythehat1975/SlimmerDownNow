@@ -30,6 +30,7 @@ model User {
   subscription      Subscription?
   notificationPref  NotificationPreference?
   auditLogs         AuditLog[]
+  nutritionLogs     NutritionLog[]
 
   @@map("users")
 }
@@ -327,4 +328,16 @@ model AuditLog {
   @@index([userId, createdAt])
   @@index([action, createdAt])
   @@map("audit_logs")
+}
+
+model NutritionLog {
+  id        Int      @id @default(autoincrement())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  date      DateTime
+  proteinG  Int      @default(0)
+  carbG     Int      @default(0)
+  fatG      Int      @default(0)
+
+  @@unique([userId, date])
 }

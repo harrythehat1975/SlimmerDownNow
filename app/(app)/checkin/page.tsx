@@ -6,6 +6,14 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 
+// Conversion helpers
+const kgToLbs = (kg: number) => Math.round(kg * 2.20462 * 10) / 10;
+const lbsToKg = (lbs: number) => Math.round((lbs / 2.20462) * 10) / 10;
+const cmToInches = (cm: number) => Math.round((cm / 2.54) * 10) / 10;
+const inchesToCm = (inches: number) => Math.round((inches * 2.54) * 10) / 10;
+
+type UnitSystem = "metric" | "us";
+
 export default function CheckInPage() {
   const { status } = useSession();
   const router = useRouter();
@@ -15,6 +23,7 @@ export default function CheckInPage() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
 
+  const [unit, setUnit] = useState<UnitSystem>("us");
   const [form, setForm] = useState({
     weight: "",
     waistCm: "",
@@ -37,8 +46,12 @@ export default function CheckInPage() {
         if (data.completed && data.checkin) {
           setAlreadyDone(true);
           setForm({
-            weight: data.checkin.weight?.toString() || "",
-            waistCm: data.checkin.waistCm?.toString() || "",
+            weight: unit === "us"
+              ? (data.checkin.weight ? kgToLbs(data.checkin.weight).toString() : "")
+              : (data.checkin.weight?.toString() || ""),
+            waistCm: unit === "us"
+              ? (data.checkin.waistCm ? cmToInches(data.checkin.waistCm).toString() : "")
+              : (data.checkin.waistCm?.toString() || ""),
             sleepHours: data.checkin.sleepHours.toString(),
             stressLevel: data.checkin.stressLevel.toString(),
             energyLevel: data.checkin.energyLevel.toString(),
@@ -53,7 +66,27 @@ export default function CheckInPage() {
         setLoading(false);
       })
       .catch(() => setLoading(false));
+    // eslint-disable-next-line
   }, [status]);
+
+  // Convert values when switching units
+  useEffect(() => {
+    setForm((prev) => {
+      let weight = prev.weight;
+      let waistCm = prev.waistCm;
+      if (unit === "us") {
+        // Convert metric to US
+        weight = weight ? kgToLbs(Number(weight)).toString() : "";
+        waistCm = waistCm ? cmToInches(Number(waistCm)).toString() : "";
+      } else {
+        // Convert US to metric
+        weight = weight ? lbsToKg(Number(weight)).toString() : "";
+        waistCm = waistCm ? inchesToCm(Number(waistCm)).toString() : "";
+      }
+      return { ...prev, weight, waistCm };
+    });
+    // eslint-disable-next-line
+  }, [unit]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -78,8 +111,13 @@ export default function CheckInPage() {
         workoutAdherence: parseFloat(form.workoutAdherence),
       };
 
-      if (form.weight) body.weight = parseFloat(form.weight);
-      if (form.waistCm) body.waistCm = parseFloat(form.waistCm);
+      // Always send metric to backend
+      if (form.weight) body.weight = unit === "us"
+        ? lbsToKg(parseFloat(form.weight))
+        : parseFloat(form.weight);
+      if (form.waistCm) body.waistCm = unit === "us"
+        ? inchesToCm(parseFloat(form.waistCm))
+        : parseFloat(form.waistCm);
       if (form.notes.trim()) body.notes = form.notes.trim();
 
       const res = await fetch("/api/users/checkin", {
@@ -138,6 +176,25 @@ export default function CheckInPage() {
 
   return (
     <div className="max-w-2xl mx-auto">
+      {/* Unit toggle - always visible above measurements */}
+      <div className="flex gap-4 items-center mb-6">
+        <span className="text-sm text-earth-500">Units:</span>
+        <button
+          type="button"
+          className={`px-3 py-1 rounded-zen border text-sm ${unit === "metric" ? "bg-sage-700 text-white border-sage-700" : "bg-sand-100 border-sand-300 text-earth-700"}`}
+          onClick={() => setUnit("metric")}
+        >
+          Metric (kg/cm)
+        </button>
+        <button
+          type="button"
+          className={`px-3 py-1 rounded-zen border text-sm ${unit === "us" ? "bg-sage-700 text-white border-sage-700" : "bg-sand-100 border-sand-300 text-earth-700"}`}
+          onClick={() => setUnit("us")}
+        >
+          US (lbs/in)
+        </button>
+      </div>
+
       <div className="zen-card border-l-4 border-sage-500 mb-6">
         <h1 className="text-2xl font-light text-earth-900">
           Daily Check-In
@@ -161,26 +218,26 @@ export default function CheckInPage() {
           <h2 className="zen-section-title">Measurements (optional)</h2>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="zen-label">Weight (kg)</label>
+              <label className="zen-label">Weight ({unit === "us" ? "lbs" : "kg"})</label>
               <input
                 type="number"
                 name="weight"
                 value={form.weight}
                 onChange={handleChange}
                 step="0.1"
-                placeholder="e.g. 80.5"
+                placeholder={unit === "us" ? "e.g. 180" : "e.g. 80.5"}
                 className="zen-input"
               />
             </div>
             <div>
-              <label className="zen-label">Waist (cm)</label>
+              <label className="zen-label">Waist ({unit === "us" ? "in" : "cm"})</label>
               <input
                 type="number"
                 name="waistCm"
                 value={form.waistCm}
                 onChange={handleChange}
                 step="0.1"
-                placeholder="e.g. 85.0"
+                placeholder={unit === "us" ? "e.g. 34" : "e.g. 85.0"}
                 className="zen-input"
               />
             </div>

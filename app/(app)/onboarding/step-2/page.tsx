@@ -38,6 +38,23 @@ export default function OnboardingStep2() {
   const [waistIn, setWaistIn] = useState("");
   const [errors, setErrors] = useState<Record<string, string>>({});
 
+  // Frontend guard: redirect if onboarding already completed
+  useEffect(() => {
+    async function checkOnboarding() {
+      try {
+        const res = await fetch("/api/users/profile");
+        if (res.ok) {
+          const profile = await res.json();
+          if (profile.onboardingCompleted) {
+            router.replace("/dashboard");
+            return;
+          }
+        }
+      } catch {}
+    }
+    checkOnboarding();
+  }, [router]);
+
   // Load from localStorage on mount
   useEffect(() => {
     const saved = localStorage.getItem("onboarding");

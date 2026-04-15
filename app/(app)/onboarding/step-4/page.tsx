@@ -163,6 +163,23 @@ export default function OnboardingStep4() {
     router.push("/onboarding/step-3");
   };
 
+  // Frontend guard: redirect if onboarding already completed
+  useEffect(() => {
+    async function checkOnboarding() {
+      try {
+        const res = await fetch("/api/users/profile");
+        if (res.ok) {
+          const profile = await res.json();
+          if (profile.onboardingCompleted) {
+            router.replace("/dashboard");
+            return;
+          }
+        }
+      } catch {}
+    }
+    checkOnboarding();
+  }, [router]);
+
   const loss = computedLoss();
   const currentDisplay = unit === "metric"
     ? `${currentWaistCm} cm`

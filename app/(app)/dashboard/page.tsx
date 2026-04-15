@@ -36,6 +36,17 @@ interface CoachMessage {
   fallback?: boolean;
 }
 
+// Conversion helpers
+function cmToInches(cm: number) {
+  return cm / 2.54;
+}
+function kgToLbs(kg: number) {
+  return kg * 2.20462;
+}
+function litersToOz(liters: number) {
+  return liters * 33.814;
+}
+
 export default function DashboardPage() {
   const router = useRouter();
   const { data: session } = useSession();
@@ -45,6 +56,7 @@ export default function DashboardPage() {
   const [coachLoading, setCoachLoading] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [unitSystem, setUnitSystem] = useState<'metric' | 'us'>("metric");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -87,6 +99,36 @@ export default function DashboardPage() {
     }
   }, [session]);
 
+  // Helper to format measurements in coach message
+  function formatCoachMessage(msg: string) {
+    if (!userMetrics) return msg;
+    let formatted = msg;
+    // Replace weight (kg)
+    if (userMetrics.weight) {
+      const kg = userMetrics.weight;
+      const lbs = kgToLbs(kg);
+      formatted = formatted.replace(/(\d+(\.\d+)?) ?kg/g, unitSystem === 'us' ? `${lbs.toFixed(1)} lbs` : `${kg} kg`);
+    }
+    // Replace waist/height (cm)
+    if (userMetrics.waistCm) {
+      const cm = userMetrics.waistCm;
+      const inches = cmToInches(cm);
+      formatted = formatted.replace(/(\d+(\.\d+)?) ?cm/g, unitSystem === 'us' ? `${inches.toFixed(1)} in` : `${cm} cm`);
+    }
+    if (userMetrics.heightCm) {
+      const cm = userMetrics.heightCm;
+      const inches = cmToInches(cm);
+      formatted = formatted.replace(/(\d+(\.\d+)?) ?cm/g, unitSystem === 'us' ? `${inches.toFixed(1)} in` : `${cm} cm`);
+    }
+    // Hydration (liters)
+    if (dailyPlan?.hydrationGoalLiters) {
+      const liters = dailyPlan.hydrationGoalLiters;
+      const oz = litersToOz(liters);
+      formatted = formatted.replace(/(\d+(\.\d+)?) ?L/g, unitSystem === 'us' ? `${oz.toFixed(1)} oz` : `${liters} L`);
+    }
+    return formatted;
+  }
+
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-96">
@@ -105,6 +147,26 @@ export default function DashboardPage() {
 
   return (
     <div className="grid gap-8">
+      {/* Unit Toggle */}
+      <div className="flex justify-end">
+        <div className="inline-flex rounded-md shadow-sm" role="group">
+          <button
+            type="button"
+            className={`zen-btn-secondary rounded-r-none ${unitSystem === 'metric' ? 'bg-sage-600 text-white' : ''}`}
+            onClick={() => setUnitSystem('metric')}
+          >
+            Metric
+          </button>
+          <button
+            type="button"
+            className={`zen-btn-secondary rounded-l-none ${unitSystem === 'us' ? 'bg-sage-600 text-white' : ''}`}
+            onClick={() => setUnitSystem('us')}
+          >
+            US
+          </button>
+        </div>
+      </div>
+
       {/* Welcome Section */}
       <div className="zen-card bg-sage-900 p-8">
         <h1 className="text-3xl font-light text-sand-50 mb-2">
@@ -241,14 +303,14 @@ export default function DashboardPage() {
           <h3 className="text-lg font-medium text-sage-900 mb-2">
             Your Coach&apos;s Message Today
           </h3>
-          <p className="text-earth-700 mb-4">{coachData.coach_message}</p>
+          <p className="text-earth-700 mb-4">{formatCoachMessage(coachData.coach_message)}</p>
 
           <details className="mb-3">
             <summary className="cursor-pointer text-sm font-medium text-sage-700 hover:text-sage-900 transition">
               Why this plan?
             </summary>
             <p className="mt-2 text-sm text-earth-600 pl-4 border-l-2 border-sage-300">
-              {coachData.plan_explanation}
+              {formatCoachMessage(coachData.plan_explanation)}
             </p>
           </details>
 
@@ -257,7 +319,7 @@ export default function DashboardPage() {
               <p className="text-sm font-medium text-earth-700 mb-1">Today&apos;s tips:</p>
               <ul className="list-disc list-inside text-sm text-earth-600 space-y-1">
                 {coachData.tips.map((tip, i) => (
-                  <li key={i}>{tip}</li>
+                  <li key={i}>{formatCoachMessage(tip)}</li>
                 ))}
               </ul>
             </div>
@@ -266,7 +328,7 @@ export default function DashboardPage() {
           {coachData.warnings.length > 0 && (
             <div className="mt-3 bg-amber-50/60 border border-amber-200 rounded-zen p-3">
               {coachData.warnings.map((w, i) => (
-                <p key={i} className="text-sm text-amber-800">{w}</p>
+                <p key={i} className="text-sm text-amber-800">{formatCoachMessage(w)}</p>
               ))}
             </div>
           )}
@@ -276,7 +338,7 @@ export default function DashboardPage() {
           <h3 className="text-lg font-medium text-earth-800 mb-2">
             Today&apos;s Tip
           </h3>
-          <p className="text-earth-600">{dailyPlan.coachingTip}</p>
+          <p className="text-earth-600">{formatCoachMessage(dailyPlan.coachingTip)}</p>
         </div>
       ) : null}
 

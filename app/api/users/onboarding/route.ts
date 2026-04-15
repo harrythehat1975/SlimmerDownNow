@@ -14,6 +14,17 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
+    // Backend guard: block onboarding if already completed
+    const existingProfile = await prisma.userProfile.findUnique({
+      where: { userId },
+    });
+    if (existingProfile?.onboardingCompleted) {
+      return NextResponse.json(
+        { error: "Onboarding already completed" },
+        { status: 409 }
+      );
+    }
+
     const body = await request.json();
     const {
       firstName,
